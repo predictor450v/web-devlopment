@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Boxmodel</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            background-color: aqua;
+        }
+        .box1{
+            color: yellow;
+             padding: 10px;
+             margin:40px;
+            border: 5px solid rgb(4, 4, 60);
+            height: 200px;
+            box-sizing: border-box;
+        }
+        .box2{
+            color:red;
+            padding: 10px;
+            margin:40px;
+            border: 2px solid black;
+            height: 200px;
+            box-sizing: border-box;
+        }
+        p:hover{background-color: aqua;}
+        h1:hover{color: rgb(16, 91, 203) ;background-color: rgb(255, 0, 187);}
+        h2:hover{color: brown;}
+    </style>
+</head>
+
+<body>
+    <div class="box box1">I am a box</div>
+    <div class="box box2">I am another box</div>
+    <img src="box model.png" alt="there is a problem">
+    <h1>CSS Box Model</h1>
+    <p>
+        The CSS Box model defines how elements are rendered and how their dimensions are calculated. It describes the structure of an element as a rectangular box that has content, padding, a border, and a margin. The box model consists of four main components, which are:</p>
+        <h2>1. Content</h2>
+        <p>
+        The innermost component of the box model is the actual content of the element. It can be text, image, video, etc.
+        The content area is defined by the width and height properties.</p>
+    
+        <h2>2. Padding</h2>
+        <p>The space between the actual content and the border of the element is the padding.
+        The padding area is defined by the property padding. For more details, follow the CSS Padding tutorial.</p>
+        <h2>3. Border</h2>
+        <p>The border surrounds the content and padding and gives the visual border of the element.
+        The border properties can be controlled using the border keyword. For more details, follow the CSS Borders tutorial.</p>
+        <h2>4. Margin</h2>
+        <p>The margin is the space outside the element that separates it from other elements in the layout.
+        The margin of the element is controlled by the margin property. </p>
+</body>
+
+</html>

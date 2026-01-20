@@ -1,0 +1,9 @@
+
+
+clint  ( who gonna use)
+browser (where we sent request)
+server  (where it saves)
+
+
+html , css, javascript ( front end)
+

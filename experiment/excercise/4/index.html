@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>navbar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        :root{
+            --bg-list-item:antiquewhite;
+            --main-theame:rgba(31, 239, 239, 0.212);
+            --border:3px solid red;
+        }
+        .navbar{
+            display: block;
+            border: 3px dotted red;
+            border-radius: 20%;
+            position: sticky;
+        }
+        .list{
+            list-style-type: none;
+            padding: 3px;
+            display:flex;
+            justify-content: flex-end;
+            margin: 10px;
+            border: var(--border) ;
+            border-radius: 10px;
+            background-color: var(--main-theame);
+        }
+        .list li{
+            
+            margin: 10px;
+            border: 1px solid blue;
+            border-radius: 10px;
+            padding: 2px;
+            background-color: var(--bg-list-item);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="head">
+        <nav class="navbar">
+            <ul class="list">
+                <li>home</li>
+                <li>about</li>
+                <li>settings</li>
+                <li>about us</li>
+            </ul>
+        </nav>
+    </header>
+
+</body>
+
+</html>

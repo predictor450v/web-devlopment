@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms - Lets learn it</title>
+    <!-- titile of page  -->
+</head>
+
+<body>
+    <!-- hadeing -->
+    <h1>Form to apply for Sigma Web Development course - TA </h1>
+
+
+    <!-- form - tag  ask us "get"(to hit server) or "post"(get from input) -->
+    <form action="post">
+
+
+        <!-- div is a block element -->
+        <div>
+            <!-- label for giving it a label  -->
+
+            <label for="username">Enter your Username</label>
+
+            <!-- id = uniqe id , input type ="text"  = to take input from user  -->
+
+            <input type="text" id="username" name="username" placeholder="Enter your username" autofocus>
+            <!-- the placeholder attribute provides a hint to the user about what to enter. -->
+            <!-- The autofocus attribute automatically focuses the cursor on the particular input when the page loads -->
+
+
+        </div>
+
+        <!-- Radio buttons are used when you want the user to select only one option from a set of choices. -->
+        <div>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+        </div>
+
+
+        <!-- Checkboxes allow the user to select multiple options from a set. -->
+        <div>
+            <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+            <label for="subscribe">Subscribe to newsletter</label>
+        </div>
+
+        <!-- The textarea element is used when you need multiline text input from the user. This is particularly useful for comments, reviews, or any other type of input where the length is unpredictable -->
+        <div>
+            <label for="comment">Enter your comment</label>
+            <br>
+            <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+        </div>
+
+
+        <!-- The select element creates a dropdown menu for the user. It is useful when you have a predefined list of options for the user to choose from. -->
+
+        <div>
+            <select name="fruits">
+                <option value="apple">Apple</option>
+                <option value="banana">Banana</option>
+                <option value="cherry">Cherry</option>
+            </select>
+        </div>
+    </form>
+</body>
+
+</html>

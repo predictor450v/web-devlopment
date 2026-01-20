@@ -1,0 +1,68 @@
+/* Universal Selector */
+/* Universal selector represented by * targets all the HTML elements on the page. */
+* {
+    color: purple;
+            text-align: center
+}
+
+/* Element Selector (Type Selector)
+The element selector selects the target element based on the specific type. Suppose you want to underline all the <p> tags; in this case, the element selector will be the best choice. */
+p {
+    property: value;
+}
+
+/* ID Selector
+The ID selector targets the elements based on the specific ID. It is written with the hash # character followed by the ID name in the style sheet. */
+
+#ID {
+    property: value;
+}
+
+/* Class Selector
+The class selector does the same job as the id selector, a class selector helps group various types of elements. Suppose, we want to give a custom style to a specific group of elements. In this case, the class selector is the best option. */
+
+.class {
+    property: value;
+}
+
+/* Group Selector
+The group selector is used to minimize the code. Commas , are used to separate each selector in a grouping. This reduces the number of lines of code. The code also looks clean. */
+
+div, p, a {
+    property: value;
+}
+
+
+/* Child Selectors  */
+div > p {
+    color: blue;
+    background-color: brown;
+}
+
+/* Descendant Selector  */
+div p {
+    color: blue;
+    background-color: brown;
+}
+
+/* Pseudo Selector  */
+a:visited{
+    color: yellow
+}
+/* link selector  */
+a:link {
+    color: green;
+}
+
+a:active{
+    background-color: red;
+}
+/* when the cusor in on the text  */
+a:hover{
+    background-color: yellow;
+}
+
+/* only select first child  */
+p:first-child{
+    background-color: aqua;
+}

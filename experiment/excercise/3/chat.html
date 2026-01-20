@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Card</title>
+  <style>
+    body {
+      background: #e2c5c5bd;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      width: 310px;
+      margin: 20px auto;
+      padding: 16px;
+      background-color: rgba(22, 231, 231, 0.326);
+      border-radius: 20px;
+      border: 3px solid black;
+      box-sizing: border-box;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+    }
+
+    .tags {
+      margin-top: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: aliceblue;
+      border: 1px solid black;
+      border-radius: 15px;
+      padding: 4px 10px;
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    .content {
+      margin-top: 12px;
+    }
+
+    .content h2 {
+      margin-bottom: 8px;
+    }
+
+    .button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background-color: rgba(155, 63, 241, 0.537);
+      color: black;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: rgba(155, 63, 241, 0.7);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img
+      src="https://media.istockphoto.com/id/1403500817/photo/the-craggies-in-the-blue-ridge-mountains.jpg?s=612x612&w=0&k=20&c=N-pGA8OClRVDzRfj_9AqANnOaDS3devZWwrQNwZuDSk="
+      alt="Mountain view"
+    />
+
+    <div class="tags">
+      <span class="tag">Nature</span>
+      <span class="tag">Mountain</span>
+    </div>
+
+    <div class="content">
+      <h2>The Mountains</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minus
+        beatae consequatur praesentium nesciunt neque tempora blanditiis eveniet
+        saepe nemo incidunt.
+      </p>
+    </div>
+
+    <button class="button">ABOUT US</button>
+  </div>
+</body>
+</html>

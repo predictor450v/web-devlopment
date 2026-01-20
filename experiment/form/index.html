@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO: Descriptive Title Tag -->
+    <title>Personal Well-being & Circumstances Survey</title>
+    <!-- SEO: Meta Description for search engines -->
+    <meta name="description" content="A comprehensive, confidential survey to understand personal well-being, including mental health, financial situation, and family conditions.">
+    <!-- Note: Link to external CSS file for styling (recommended for separation of concerns) -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <!-- SEO: Optional meta tag to prevent indexing if this page should be private -->
+    <!-- <meta name="robots" content="noindex, nofollow"> -->
+    <style>
+        /* Basic styling for readability - move to styles.css for production */
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        h1, h2 { border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        fieldset { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; }
+        legend { font-weight: bold; font-size: 1.1em; padding: 0 10px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="text"], input[type="email"], input[type="number"], select, textarea { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        textarea { resize: vertical; min-height: 80px; }
+        .radio-group label, .checkbox-group label { display: inline-block; margin-right: 15px; font-weight: normal; }
+        .radio-group input[type="radio"], .checkbox-group input[type="checkbox"] { margin-right: 5px; }
+        button { padding: 12px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; }
+        button:hover { background-color: #0056b3; }
+        .form-group { margin-bottom: 15px; }
+        /* SEO: Ensure form elements are easily clickable on mobile */
+        input[type="radio"], input[type="checkbox"] { transform: scale(1.2); margin-right: 8px; }
+    </style>
+</head>
+<body>
+
+    <!-- SEO: Use only one H1 tag per page for the main topic -->
+    <h1>Personal Well-being & Circumstances Survey</h1>
+    <p>Thank you for taking the time to complete this survey. Your responses will help us understand various aspects of personal well-being. Please answer honestly. Your individual responses will be kept confidential.</p>
+
+    <!-- SEO: Structure content using semantic HTML5 tags -->
+    <main>
+        <!-- The 'action' attribute should point to the server-side script that will process the form data -->
+        <!-- The 'method' can be 'post' (sends data in the HTTP request body) or 'get' (sends data in the URL) -->
+        <form id="wellbeing-survey" action="/submit-survey-endpoint" method="post">
+
+            <!-- Section 1: Basic Information (Optional - consider privacy implications) -->
+            <fieldset>
+                <legend>Basic Information</legend>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="user_name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="user_email" placeholder="Enter your email address">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="user_age" min="18" max="120" placeholder="Enter your age">
+                </div>
+            </fieldset>
+
+            <!-- Section 2: Mental Health -->
+            <fieldset>
+                <legend>Mental Health & Well-being</legend>
+                <div class="form-group">
+                    <!-- SEO: Use descriptive labels -->
+                    <label for="mental-wellbeing-rating">On a scale of 1 to 10 (where 1 is very poor and 10 is excellent), how would you rate your overall mental well-being currently?</label>
+                    <input type="range" id="mental-wellbeing-rating" name="mental_wellbeing_rating" min="1" max="10" list="markers" style="width: 95%;">
+                    <datalist id="markers">
+                        <option value="1"></option><option value="2"></option><option value="3"></option><option value="4"></option><option value="5"></option><option value="6"></option><option value="7"></option><option value="8"></option><option value="9"></option><option value="10"></option>
+                    </datalist>
+                     <!-- You might add a span here to display the current slider value using JavaScript -->
+                </div>
+
+                <div class="form-group">
+                    <label>How often do you experience symptoms of anxiety (e.g., excessive worry, restlessness, irritability)?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="anxiety-never" name="anxiety_frequency" value="never"> <label for="anxiety-never">Never</label>
+                        <input type="radio" id="anxiety-rarely" name="anxiety_frequency" value="rarely"> <label for="anxiety-rarely">Rarely</label>
+                        <input type="radio" id="anxiety-sometimes" name="anxiety_frequency" value="sometimes"> <label for="anxiety-sometimes">Sometimes</label>
+                        <input type="radio" id="anxiety-often" name="anxiety_frequency" value="often"> <label for="anxiety-often">Often</label>
+                        <input type="radio" id="anxiety-always" name="anxiety_frequency" value="always"> <label for="anxiety-always">Almost Always</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>How often do you experience symptoms of depression (e.g., persistent sadness, loss of interest, fatigue)?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="depression-never" name="depression_frequency" value="never"> <label for="depression-never">Never</label>
+                        <input type="radio" id="depression-rarely" name="depression_frequency" value="rarely"> <label for="depression-rarely">Rarely</label>
+                        <input type="radio" id="depression-sometimes" name="depression_frequency" value="sometimes"> <label for="depression-sometimes">Sometimes</label>
+                        <input type="radio" id="depression-often" name="depression_frequency" value="often"> <label for="depression-often">Often</label>
+                        <input type="radio" id="depression-always" name="depression_frequency" value="always"> <label for="depression-always">Almost Always</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="discuss-mental-health">How comfortable do you feel discussing your mental health with friends or family?</label>
+                    <select id="discuss-mental-health" name="discuss_mental_health_comfort">
+                        <option value="">--Please choose an option--</option>
+                        <option value="very_comfortable">Very Comfortable</option>
+                        <option value="comfortable">Comfortable</option>
+                        <option value="neutral">Neutral</option>
+                        <option value="uncomfortable">Uncomfortable</option>
+                        <option value="very_uncomfortable">Very Uncomfortable</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you engage in regular self-care practices for your mental well-being? (Check all that apply)</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="selfcare-meditation" name="self_care_practices[]" value="meditation"> <label for="selfcare-meditation">Meditation/Mindfulness</label><br>
+                        <input type="checkbox" id="selfcare-journaling" name="self_care_practices[]" value="journaling"> <label for="selfcare-journaling">Journaling</label><br>
+                        <input type="checkbox" id="selfcare-exercise" name="self_care_practices[]" value="exercise"> <label for="selfcare-exercise">Physical Exercise</label><br>
+                        <input type="checkbox" id="selfcare-hobbies" name="self_care_practices[]" value="hobbies"> <label for="selfcare-hobbies">Engaging in Hobbies</label><br>
+                        <input type="checkbox" id="selfcare-social" name="self_care_practices[]" value="social_connection"> <label for="selfcare-social">Spending time with loved ones</label><br>
+                        <input type="checkbox" id="selfcare-nature" name="self_care_practices[]" value="nature"> <label for="selfcare-nature">Spending time in nature</label><br>
+                         <input type="checkbox" id="selfcare-none" name="self_care_practices[]" value="none"> <label for="selfcare-none">None of the above</label><br>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     <label>Have you ever sought professional help (e.g., counseling, therapy) for mental health concerns?</label>
+                     <div class="radio-group">
+                        <input type="radio" id="prof-help-yes" name="professional_help" value="yes"> <label for="prof-help-yes">Yes</label>
+                        <input type="radio" id="prof-help-no" name="professional_help" value="no"> <label for="prof-help-no">No</label>
+                        <input type="radio" id="prof-help-considering" name="professional_help" value="considering"> <label for="prof-help-considering">Currently considering it</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Section 3: Financial Situation -->
+            <fieldset>
+                <legend>Financial Situation</legend>
+                 <p><em>Note: We understand financial questions are sensitive. Please answer only what you are comfortable with. We are interested in understanding financial well-being and stress, not specific amounts.</em></p>
+
+                <div class="form-group">
+                    <label for="financial-stability">How would you rate your current financial stability?</label>
+                     <select id="financial-stability" name="financial_stability">
+                        <option value="">--Please choose an option--</option>
+                        <option value="very_stable">Very Stable</option>
+                        <option value="stable">Stable</option>
+                        <option value="neutral">Neutral / Managing</option>
+                        <option value="unstable">Unstable</option>
+                        <option value="very_unstable">Very Unstable</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>How often do you worry about your financial situation?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="finance-worry-never" name="finance_worry_frequency" value="never"> <label for="finance-worry-never">Never</label>
+                        <input type="radio" id="finance-worry-rarely" name="finance_worry_frequency" value="rarely"> <label for="finance-worry-rarely">Rarely</label>
+                        <input type="radio" id="finance-worry-sometimes" name="finance_worry_frequency" value="sometimes"> <label for="finance-worry-sometimes">Sometimes</label>
+                        <input type="radio" id="finance-worry-often" name="finance_worry_frequency" value="often"> <label for="finance-worry-often">Often</label>
+                        <input type="radio" id="finance-worry-always" name="finance_worry_frequency" value="always"> <label for="finance-worry-always">Almost Always</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="finance-stress-impact">To what extent do financial concerns impact your overall stress levels?</label>
+                    <select id="finance-stress-impact" name="finance_stress_impact">
+                        <option value="">--Please choose an option--</option>
+                        <option value="none">Not at all</option>
+                        <option value="little">A little</option>
+                        <option value="moderate">Moderately</option>
+                        <option value="significant">Significantly</option>
+                        <option value="extreme">Extremely</option>
+                    </select>
+                </div>
+
+                 <div class="form-group">
+                     <label>Do you feel you generally have enough money to cover basic needs (housing, food, utilities)?</label>
+                     <div class="radio-group">
+                        <input type="radio" id="basic-needs-yes" name="basic_needs_covered" value="yes"> <label for="basic-needs-yes">Yes, comfortably</label>
+                        <input type="radio" id="basic-needs-tight" name="basic_needs_covered" value="tight"> <label for="basic-needs-tight">Yes, but it's often tight</label>
+                         <input type="radio" id="basic-needs-sometimes" name="basic_needs_covered" value="sometimes"> <label for="basic-needs-sometimes">Sometimes / Not always</label>
+                        <input type="radio" id="basic-needs-no" name="basic_needs_covered" value="no"> <label for="basic-needs-no">No, I often struggle</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Section 4: Family Conditions -->
+            <fieldset>
+                <legend>Family & Social Conditions</legend>
+
+                <div class="form-group">
+                    <label for="family-support">How would you describe the level of emotional support you receive from your immediate family?</label>
+                    <select id="family-support" name="family_support_level">
+                        <option value="">--Please choose an option--</option>
+                        <option value="very_high">Very High</option>
+                        <option value="high">High</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="low">Low</option>
+                        <option value="very_low">Very Low / None</option>
+                         <option value="not_applicable">Not Applicable / Prefer not to say</option>
+                    </select>
+                </div>
+
+                 <div class="form-group">
+                    <label for="family-dynamics">Which term best describes your current family dynamics?</label>
+                    <select id="family-dynamics" name="family_dynamics">
+                        <option value="">--Please choose an option--</option>
+                        <option value="supportive">Generally Supportive & Harmonious</option>
+                        <option value="neutral">Neutral / Mixed</option>
+                        <option value="strained">Often Strained or Conflictual</option>
+                        <option value="distant">Distant / Limited Contact</option>
+                        <option value="complex">Complex / Difficult to Describe</option>
+                         <option value="prefer_not_say">Prefer not to say</option>
+                    </select>
+                </div>
+
+                 <div class="form-group">
+                    <label for="family-stress-impact">To what extent do family matters contribute to your overall stress levels?</label>
+                     <select id="family-stress-impact" name="family_stress_impact">
+                        <option value="">--Please choose an option--</option>
+                        <option value="none">Not at all</option>
+                        <option value="little">A little</option>
+                        <option value="moderate">Moderately</option>
+                        <option value="significant">Significantly</option>
+                        <option value="extreme">Extremely</option>
+                    </select>
+                </div>
+
+                 <div class="form-group">
+                    <label for="social-connections">Outside of family, how satisfied are you with your social connections (friends, community)?</label>
+                     <select id="social-connections" name="social_connection_satisfaction">
+                        <option value="">--Please choose an option--</option>
+                        <option value="very_satisfied">Very Satisfied</option>
+                        <option value="satisfied">Satisfied</option>
+                        <option value="neutral">Neutral</option>
+                        <option value="dissatisfied">Dissatisfied</option>
+                        <option value="very_dissatisfied">Very Dissatisfied</option>
+                    </select>
+                </div>
+            </fieldset>
+
+             <!-- Section 5: Overall & Open Feedback -->
+            <fieldset>
+                <legend>Overall Perspective</legend>
+                 <div class="form-group">
+                    <label for="life-satisfaction">Taking everything into account, how satisfied are you with your life as a whole these days?</label>
+                    <select id="life-satisfaction" name="overall_life_satisfaction">
+                        <option value="">--Please choose an option--</option>
+                        <option value="very_satisfied">Very Satisfied</option>
+                        <option value="satisfied">Satisfied</option>
+                        <option value="neutral">Neither Satisfied nor Dissatisfied</option>
+                        <option value="dissatisfied">Dissatisfied</option>
+                        <option value="very_dissatisfied">Very Dissatisfied</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="additional-comments">Is there anything else you would like to share about your current situation or well-being? (Optional)</label>
+                    <textarea id="additional-comments" name="additional_comments" rows="5" placeholder="Enter any additional thoughts here..."></textarea>
+                </div>
+            </fieldset>
+
+            <!-- Submission Button -->
+            <div class="form-group" style="text-align: center;">
+                 <!-- SEO: Use clear call-to-action text -->
+                <button type="submit">Submit Survey Responses</button>
+            </div>
+
+        </form>
+    </main>
+
+    <!-- SEO: Consider adding a footer with relevant links or information -->
+    <footer>
+        <p style="text-align: center; font-size: 0.9em; color: #666;">Thank you for your participation. Your privacy is important to us.</p>
+    </footer>
+
+</body>
+</html>

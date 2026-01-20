@@ -1,0 +1,315 @@
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e9f0fa 0%, #f8fbff 100%);
+    color: #24344d;
+    min-height: 100vh;
+    line-height: 1.7;
+}
+
+/* Header Styling */
+header, HEAder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #2c3e50 60%, #4b79a1 100%);
+    color: #fff;
+    padding: 24px 6vw 18px 6vw;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 6px 24px rgba(44, 62, 80, 0.13);
+    letter-spacing: 1.5px;
+}
+
+header img, HEAder img {
+    height: 40px;
+    margin-right: 22px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(44, 62, 80, 0.12);
+}
+
+header b, HEAder b {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+    margin-right: 24px;
+}
+
+NAV, nav, HEAder NAV {
+    margin-left: auto;
+}
+
+NAV ul {
+    display: flex;
+    gap: 28px;
+    list-style-type: square;
+}
+
+NAV li {
+    font-size: 1.07rem;
+    color: #f9fafc;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 5px;
+    transition: background 0.2s, color 0.2s;
+}
+
+NAV li:hover {
+    background: #fff;
+    color: #2c3e50;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+}
+
+/* Main Content Styling */
+main {
+    max-width: 900px;
+    margin: 36px auto 0 auto;
+    background: #fff;
+    padding: 38px 36px 30px 36px;
+    border-radius: 18px;
+    box-shadow: 0 8px 40px rgba(44, 62, 80, 0.13);
+    position: relative;
+}
+
+h1 {
+    font-size: 2.6rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+span {
+    display: block;
+    margin-bottom: 32px;
+    font-size: 1.13rem;
+    color: #34495e;
+    background: #f3f7fb;
+    border-left: 5px solid #4b79a1;
+    padding: 18px 20px 18px 24px;
+    border-radius: 7px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
+}
+
+iframe {
+    display: block;
+    margin: 0 auto 26px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(44, 62, 80, 0.10);
+    border: none;
+    width: 100%;
+    max-width: 560px;
+    height: 315px;
+}
+
+audio {
+    display: block;
+    margin: 0 auto 28px auto;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 6px;
+    background: #f3f7fb;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+h3 {
+    margin-top: 28px;
+    color: #2c3e50;
+    font-size: 1.18rem;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+ol {
+    margin-left: 26px;
+    margin-bottom: 28px;
+}
+
+ol li {
+    margin-bottom: 8px;
+    font-size: 1.04rem;
+}
+
+a {
+    color: #1e88e5;
+    text-decoration: none;
+    border-bottom: 1.5px dotted #4b79a1;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+a:hover {
+    color: #f39c12;
+    border-bottom: 1.5px solid #f39c12;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 36px 0 28px 0;
+    background: #f3f7fb;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.07);
+}
+
+caption {
+    font-weight: bold;
+    padding: 13px;
+    color: #2c3e50;
+    background: #e3eafc;
+    font-size: 1.13rem;
+    letter-spacing: 1px;
+}
+
+th, td {
+    border: 1px solid #dbe6f6;
+    padding: 13px 6px;
+    text-align: center;
+}
+
+th {
+    background: #e3eafc;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background: #f9fbfe;
+}
+
+/* Form Styling */
+form {
+    margin-top: 28px;
+    background: #f8fbff;
+    padding: 22px 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(44, 62, 80, 0.08);
+}
+
+form div {
+    margin-bottom: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 18px;
+}
+
+label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-right: 8px;
+}
+
+input[type="text"] {
+    padding: 8px 14px;
+    border: 1.5px solid #bcd0ee;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 4px;
+    width: 240px;
+    transition: border 0.2s;
+}
+
+input[type="text"]:focus {
+    border: 1.5px solid #4b79a1;
+    outline: none;
+    background: #f3f7fb;
+}
+
+input[type="radio"] {
+    margin-left: 10px;
+    accent-color: #4b79a1;
+}
+
+input[type="range"] {
+    width: 180px;
+    vertical-align: middle;
+    margin-left: 10px;
+    accent-color: #4b79a1;
+}
+
+textarea {
+    width: 100%;
+    padding: 9px 14px;
+    border: 1.5px solid #bcd0ee;
+    border-radius: 5px;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 60px;
+    transition: border 0.2s;
+    margin-top: 6px;
+}
+
+textarea:focus {
+    border: 1.5px solid #4b79a1;
+    background: #f3f7fb;
+    outline: none;
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    background: linear-gradient(90deg, #2c3e50 60%, #4b79a1 100%);
+    color: #fff;
+    padding: 22px 0 20px 0;
+    font-size: 1.08rem;
+    margin-top: 42px;
+    letter-spacing: 1.2px;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 -2px 12px rgba(44, 62, 80, 0.09);
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    main {
+        padding: 18px 4vw;
+    }
+    header, HEAder {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 5vw 16px 5vw;
+    }
+    NAV ul {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    iframe, audio {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto;
+    }
+    table th, table td {
+        padding: 10px 2px;
+    }
+    form {
+        padding: 16px 8px;
+    }
+}
+
+@media (max-width: 500px) {
+    main {
+        padding: 7vw 2vw;
+    }
+    header, HEAder {
+        padding: 12px 2vw 10px 2vw;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    span {
+        font-size: 1rem;
+        padding: 10px 8px 10px 12px;
+    }
+    table th, table td {
+        font-size: 0.85rem;
+    }
+}

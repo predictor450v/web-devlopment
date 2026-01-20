@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            position: sticky;
+            top: 0;
+        }
+
+        .navbar {
+            border: 1px solid black;
+            
+            z-index: 100;
+            background: white;
+        }
+
+        .list {
+            list-style: none;
+            border: 2px solid black;
+            display: flex;
+            margin: 10px;
+            justify-content: right;
+
+        }
+
+        li {
+            margin: 4px;
+            border: 2px solid black;
+        }
+
+        .body {
+            border: 1px solid black;
+            width: 100%;
+            height: 1000px;
+            background-color: rgba(0, 255, 255, 0.518);
+
+        }
+
+        .box {
+            display: inline-block;
+            border: 3px solid black;
+            height: 400px;
+            width: 500px;
+            margin: 100px;
+            border-radius: 10px;
+            background-color: blanchedalmond;
+            overflow: auto;
+        }
+
+        .borderbox {
+            border-radius: 10px;
+            border: 3px solid black;
+            padding: 20px;
+            background-color: blueviolet;
+            text-align: center;
+
+        }
+
+        img {
+
+            border-radius: 20px;
+            height: 40px;
+            width: 40px;
+            position: fixed;
+            z-index: 10;
+            bottom: 10px;
+            right: 10px;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <ul class="list">
+                <li>Home </li>
+                <li> about </li>
+                <li> contact us </li>
+            </ul>
+        </nav>
+
+    </header>
+    <main class="body">
+        <div class="maindiv">
+            <div class="box">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas reprehenderit ad porro quae
+                aperiam ab consequuntur, aspernatur est mollitia cumque sapiente. Illo dolor similique dolores.
+                Cupiditate voluptas culpa dolorem veniam eos itaque labore distinctio molestias quae harum unde fuga,
+                consequatur cum assumenda aut temporibus eum, deserunt velit corrupti? Ipsum consequuntur vel laboriosam
+                laudantium dicta placeat fuga aspernatur reprehenderit, id dolor distinctio tempore modi soluta fugit
+                fugiat libero quod velit error incidunt non. Neque numquam nobis nostrum maiores laboriosam voluptas
+                dolorum, reiciendis amet modi sequi placeat ratione officia illo sapiente, eveniet in dolorem aperiam
+                eos. Voluptatum harum, earum officiis consequuntur voluptas culpa ab unde aspernatur quia, veritatis
+                nesciunt quisquam in nam totam nobis non expedita molestiae reprehenderit doloribus fugit omnis
+                delectus? Natus, libero dignissimos repudiandae ex magnam voluptatibus, nemo consequatur delectus
+                eligendi adipisci deserunt quos non est neque error ea laboriosam possimus voluptatem similique facilis.
+                Et a quas officiis, provident quod excepturi eveniet suscipit odit rerum at fugiat maiores voluptates
+                porro repellat fuga asperiores ullam consequatur, praesentium quam neque. Ab magni sequi doloremque sunt
+                soluta vero aspernatur beatae repellendus quam possimus molestiae nam atque architecto laboriosam in
+                quo, iure delectus odit eius, porro pariatur quae similique veniam. Porro debitis commodi blanditiis,
+                autem amet architecto sint iure quos accusantium magnam dolorum aspernatur, similique accusamus,
+                praesentium ipsa corrupti quo! Officiis, culpa nemo. Veniam nam natus accusamus aliquid ad, enim illum,
+                explicabo consequuntur illo asperiores ab saepe soluta hic quisquam, ullam vel temporibus quibusdam at
+                magni reiciendis. Doloribus magnam iusto eos est iure rem blanditiis iste quasi, labore quas excepturi
+                minima voluptates voluptatum eligendi odit similique doloremque ratione sed sit vitae aperiam vel,
+                inventore nam. Modi, dolor eaque. Tenetur officia eum iure sed, libero natus at repellendus sequi
+                debitis sint quae quas eaque consectetur vel assumenda qui nobis consequatur? Molestiae soluta iure
+                nostrum, excepturi nam nemo nihil voluptatem inventore consequatur hic quidem repellat! Possimus
+                officiis, nam quo accusamus temporibus recusandae debitis sed nobis doloremque dicta architecto
+                perferendis explicabo alias pariatur! Quis officia labore cum unde ea vero nihil laborum ducimus
+                expedita harum minima, eum illo. Omnis ipsa officia minima corrupti deleniti veritatis placeat velit
+                cumque quibusdam totam facilis consectetur, asperiores corporis impedit consequuntur obcaecati. Atque
+                officia ullam quasi temporibus, perferendis dignissimos excepturi non fuga voluptate maiores consequatur
+                laboriosam provident dolorum commodi incidunt illo veritatis nihil voluptatibus, quaerat quae.
+                Cupiditate nulla omnis pariatur, minima tempora laboriosam. Reiciendis saepe error laboriosam quam
+                officia, rerum deserunt necessitatibus.</div>
+            <div class="box">box2</div>
+
+        </div>
+        <div class="borderbox">
+            bordered div
+        </div>
+        <div class="img">
+            <img src="https://c4.wallpaperflare.com/wallpaper/66/971/747/beautiful-nature-spring-wallpaper-preview.jpg"
+                alt="not found">
+        </div>
+
+    </main>
+    <footer>
+        <div>footer</div>
+
+    </footer>
+
+</body>
+
+</html>

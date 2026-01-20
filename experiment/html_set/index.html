@@ -1,0 +1,175 @@
+<!-- ●	Question Set 1: Basic Webpage Structure
+○	Question: Create the basic structure of a webpage with a header containing a title and a navigation bar with links to "Home", "About Us", and "Contact".
+
+●	Question Set 2: Simple Contact Form
+○	Question: Design a simple contact form with fields for "Name", "Email", and a "Message" textarea, including appropriate labels and input types.
+
+●	Question Set 3: Embedding Multimedia
+○	Question: Embed an image and a YouTube video on a webpage, ensuring they are displayed correctly and responsively
+
+●	Question Set 4: Working with Lists
+○	Question: Create an ordered list of the top 5 most popular tourist destinations and an unordered list of recommended activities for one of those destinations.
+
+●	Question Set 5: Creating Tables
+○	Question: Construct a table to display a weekly schedule with columns for "Day", "Time", and "Activity".
+
+●	Question Set 6: Semantic HTML5 Tags for Content Structuring
+○	Question: Use semantic HTML5 tags like <article>, <aside>, <nav>, and <footer> to structure the content of a blog post
+
+    ●	Question Set 7: Text Formatting and Hyperlinks
+○	Question: Create a webpage with a paragraph of text. Make specific words within the paragraph bold, italicized, and create a hyperlink from another word to an external website.
+
+●	Question Set 8: Basic Layout with <div> Elements
+    ○	Question: Structure a webpage using <div> elements to create a layout with a header, a main content area, and a sidebar.
+    
+ ●	Question Set 9: Basic Image Gallery
+○	Question: Implement a basic image gallery using multiple images, ensuring each image haappropriate alternative text
+        
+●	Question Set 10: Definition Lists
+○	Question: Create a webpage that includes a definition list defining at least three common HTML terms.
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+</head>
+
+<body>
+    <header>
+        <h1>Amakart</h1>
+        <nav>
+            <ul type="square">
+                <li>Home</li>
+                <li>about us</li>
+                <li>connect</li>
+            </ul>
+        </nav>
+
+
+    </header>
+    <main>
+        <form action="post">
+            <div>
+                <label for="name">Enter your name:</label>
+                <input type="text" id="name" placeholder="write here">
+            </div>
+            <div>
+                <label for="email">Enter your email:</label>
+                <input type="text" id="email" placeholder="write here">
+            </div>
+            <div>
+                <label for="number">Enter your number:</label>
+                <input type="text" id="number" placeholder="write here">
+            </div>
+            <div>
+                <label for="comment">rate this website</label>
+                <br>
+                <textarea name="comment" id="comment" rows="1"></textarea>
+            </div>
+
+
+        </form>
+
+        <div>
+            <img height="300" src="OIP (2).jpeg" alt="loading">
+            <iframe width="400" height="300" src="https://www.youtube.com/embed/nGhKIC_7Mkk?si=5iyRaaO6uEzX_E7t"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+        <span>
+            <ol>
+                <li>place</li>
+                <li>place</li>
+                <li>place</li>
+                <li>place</li>
+                <li>place</li>
+            </ol>
+        </span>
+        <aside>
+            <ul>
+                <li>what to do</li>
+                <li>what to do</li>
+                <li>what to do</li>
+                <li>what to do</li>
+                <li>what to do</li>
+
+            </ul>
+
+        </aside>
+
+        <table>
+            <caption>shaduler</caption>
+            <tr>
+                <th>date</th>
+                <th>time</th>
+                <th>activity</th>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>34.6</td>
+                <td>se</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>34.6</td>
+                <td>se</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>34.6</td>
+                <td>se</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>34.6</td>
+                <td>se</td>
+            </tr>
+
+        </table>
+        <article>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit itaque harum sed voluptatum eum
+            et sequi magnam dicta explicabo facere necessitatibus, facilis aperiam maiores omnis fugiat assumenda
+            nesciunt enim cupiditate?</article>
+        <p><strong><em> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque atque porro sunt, quae quod
+                    ratione quibusdam iure reiciendis quis, consequatur omnis velit fugit.</em></strong></p>
+
+        <a href="https://www.google.co.in/">google</a>
+        <div>
+
+            <dl>
+                <li>list</li>
+                <li>to234</li>
+                <li>eg34</li>
+            </dl>
+        </div>
+        <span>
+
+            <img src="OIP (2).jpeg" alt="">
+            <img src="OIP (2).jpeg" alt="">
+            <img src="OIP (2).jpeg" alt="">
+            <img src="OIP (2).jpeg" alt="">
+            <img src="OIP (2).jpeg" alt="">
+            <img src="OIP (2).jpeg" alt="">
+            <img src="OIP (2).jpeg" alt="">
+        </span>
+
+
+
+    </main>
+
+    <footer>
+        <div>
+            thank you
+        </div>
+
+
+    </footer>
+</body>
+
+</html>

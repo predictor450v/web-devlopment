@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html{
+            font-size: 12px;
+        }
+
+        .box {
+            box-sizing: border-box;
+            border: 2px solid black;
+            /* width: 2048px; */
+            width: 80vw;
+            height: 10vh;
+            margin: auto;
+            background-color: aquamarine;
+        }
+
+        .container {
+            box-sizing: border-box;
+            border: 2px solid black;
+            /* width: 2048px; */
+            width: 80vw;
+            /* height: 80vh; */
+            min-height: 80vh;
+            margin: 23px auto;
+            font-size: 8px;
+            background-color: aquamarine;
+        }
+        .container > div{
+            font-size: 2em; 
+            border: 2px solid red;
+            width: 50%;
+        }
+
+        .container > div > div{
+            border: 2px solid blue;
+            width: 50%;
+        }
+
+        .mycont{ 
+            border: 2px solid black;
+            box-sizing: border-box;
+            margin: 23px auto;
+            color: rgb(0, 0, 0);
+            font-size: 22px;
+            /* width: 100vmin; */
+            width: 80vw;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Values_and_Units -->
+    <div class="box">
+        This is a box
+    </div>
+
+    <div class="container">
+        <div>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis necessitatibus quia quod iste dolorem
+            voluptatem fuga quidem aspernatur. Nihil ipsa sint quae, beatae explicabo saepe impedit laboriosam magni
+            cupiditate expedita voluptates consequatur odit veritatis dolorum doloribus. Iure nemo odit dicta, delectus,
+            modi reiciendis maiores ut quo adipisci libero quam laboriosam nihil voluptate natus nobis earum ad?
+        
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero omnis voluptas est aliquam, dolores rem laudantium nulla maiores odio fugit, totam voluptatem saepe!
+        </div>
+    </div>
+
+        <!-- Expand this to see that this container will adjust its height lorem999 -->
+    </div>
+
+    <div class="mycont">
+        I am another container
+    </div>
+</body>
+
+</html>
+
+<!-- 
+1.cm
+1 cm = 1 / 100 m A centimeter (cm) is a length unit in the SI system, derived from the meter (m), with 1 m = 100 cm.
+
+2. mm
+The millimeter (mm), introduced during the French Revolution’s metric system, became part of the SI system. It is maintained by the International Bureau of Weights and Measures (BIPM).
+1 cm=10mm
+1mm=1/10 cm
+
+4. pixel (px)
+A pixel (px) is the smallest unit on a digital screen, representing a point of light. More pixels mean better image clarity and higher screen resolution.
+1px = 0.26mm
+
+Relative Unit’s
+
+1. em
+In CSS , the “em” unit refers to the font-size of its parent element, defaulting to the root element (<html>) if it’s the only one in the DOM.
+    __ * root front size 
+
+2. rem
+In CSS, rem is based on the font-size of the root element (<html>) and stays the same in all cases.
+
+3. vw or view-width
+In CSS, vw depends on the viewport width, which changes with screen size, so an Android phone has a smaller vw than an HD TV.
+
+4. vh or view-height
+The vh unit in CSS is 1% of the viewport height, useful for responsive design to scale elements with the window size.
+
+5. percentage(%)
+The % unit in CSS is relative to the parent element’s size, allowing elements to adjust dynamically for responsive design
+
+6. vmin
+The vmin unit in CSS is based on the smaller of the viewport’s width or height, helping elements scale proportionally for responsive designs.
+
+7. vmax
+vmax is a CSS unit that represents 1% of the larger viewport dimension (width or height), helping elements scale based on the screen’s dominant size.
+ -->
+
+<!-- HTML IS A ROOT ELEMENT -->
