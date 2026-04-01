@@ -64,5 +64,5 @@ a:hover{
 
 /* only select first child  */
 p:first-child{
-    background-color: aqua;
+    background-color: red;
 }
