@@ -1,110 +1,121 @@
-// =======================
-// Basic JavaScript Syntax
-// =======================
+// ============================================================
+// JAVASCRIPT BASICS — Variables, Types & Objects
+// ============================================================
 
-// This is a single-line comment
-/* This is a 
-   multi-line comment */
 
-// Every JS statement ends with a semicolon (optional, but good practice)
-console.log("Hello, JavaScript!"); // Outputs text to the console
+// ── COMMENTS ─────────────────────────────────────────────────
+// Single-line comment: everything after '//' is ignored by JS
 
-// =======================
-// Types of Variables in JavaScript
-// =======================
+/* Multi-line comment:
+   useful for longer explanations.
+   Nothing inside here is executed. */
 
-// 1. var – function-scoped (older way of declaring variables)
+// Every statement ends with ';' (optional but recommended for clarity)
+console.log("Hello, JavaScript!"); // Prints output to the browser console
+
+
+
+// ── VARIABLE DECLARATIONS ────────────────────────────────────
+// A variable is a named container that holds a value.
+// JS has 3 ways to declare them — each with different rules.
+
+// 1. var — OLD way. Function-scoped. Avoid in modern code.
 var x = 10;
 
-// 2. let – block-scoped (preferred over var)
+// 2. let — PREFERRED. Block-scoped. Use when the value will change.
 let y = 20;
 
-// 3. const – block-scoped, but can't be reassigned
+// 3. const — Block-scoped. Value CANNOT be reassigned.
+//    Use const by default; switch to let only when reassignment is needed.
 const z = 30;
 
-// =======================
-// Why 'let' is used over 'var'
-// =======================
 
-// 'var' is function-scoped, which can lead to bugs if used in blocks
-// Example:
+
+// ── WHY let REPLACED var ─────────────────────────────────────
+// 'var' is function-scoped, meaning it ignores block boundaries
+// like if/for blocks. This causes unexpected behavior.
+
 if (true) {
     var a = 100;
 }
-console.log(a); // 100 – 'a' is accessible outside the block
+console.log(a); // 100 — 'a' leaked OUT of the if-block! Dangerous.
 
-// Now using 'let'
+// 'let' is block-scoped — it stays contained inside {}
 if (true) {
     let b = 200;
-    console.log(b); // Works fine
+    console.log(b); // 200 — works fine inside the block
 }
-// console.log(b); // Error: b is not defined – 'let' is block-scoped
+// console.log(b); // ❌ ReferenceError — 'b' doesn't exist outside the block
+//                    This is the CORRECT behavior: variables should not leak.
 
-// =======================
-// Variable Naming Rules
-// =======================
-// - Can contain letters, digits, $, and _
-// - Must begin with a letter, $ or _
-// - Cannot start with a number
-// - Case-sensitive (name and Name are different)
-// - Reserved keywords cannot be used (like `let`, `var`, `function`, etc.)
 
-let userName = "John";   // valid
-let _age = 25;           // valid
-let $balance = 1000;     // valid
-// let 1num = 5;         // invalid – cannot start with a number
 
-// =======================
-// Primitive Data Types
-// =======================
-// 1. Number
-// 2. String
-// 3. Boolean
-// 4. Undefined
-// 5. Null
-// 6. Symbol (ES6)
-// 7. BigInt (ES2020)
+// ── NAMING RULES ─────────────────────────────────────────────
+// - Can use: letters, digits (not first), $, _
+// - Case-sensitive: 'name' and 'Name' are different variables
+// - Cannot use reserved JS keywords (let, var, function, return, etc.)
 
-let num = 42;                     // Number
-let name = "Alice";              // String
-let isActive = true;             // Boolean
-let something;                   // Undefined (not assigned yet)
-let nothing = null;              // Null (intentional empty value)
-let id = Symbol("id");           // Symbol (unique identifier)
-let bigNum = 12345678901234567890n; // BigInt (for large integers)
+let userName = "John";   // ✅ camelCase — standard JS convention
+let _age     = 25;       // ✅ underscore prefix is valid
+let $balance = 1000;     // ✅ $ prefix is valid (used by jQuery etc.)
+// let 1num  = 5;        // ❌ Syntax error — cannot start with a number
 
-// =======================
-// typeof Function
-// =======================
-// Used to check the type of a value
 
-console.log(typeof num);      // "number"
-console.log(typeof name);     // "string"
-console.log(typeof isActive); // "boolean"
-console.log(typeof something);// "undefined"
-console.log(typeof nothing);  // "object" (quirky behavior – this is a known bug in JS)
-console.log(typeof id);       // "symbol"
-console.log(typeof bigNum);   // "bigint"
 
-// =======================
-// Objects – Key-Value Pairs
-// =======================
+// ── PRIMITIVE DATA TYPES ─────────────────────────────────────
+// A "primitive" is a basic, single value (not an object).
+// JS has 7 primitives:
+
+let num       = 42;                      // Number   — both integers and decimals
+let name      = "Alice";                 // String   — text, wrapped in quotes
+let isActive  = true;                    // Boolean  — only true or false
+let something;                           // Undefined — declared but no value assigned yet
+let nothing   = null;                    // Null     — intentionally set to "empty"
+let id        = Symbol("id");            // Symbol   — a guaranteed unique value (ES6)
+let bigNum    = 12345678901234567890n;   // BigInt   — for integers beyond safe Number range (ES2020)
+
+
+
+// ── typeof OPERATOR ──────────────────────────────────────────
+// typeof tells you what type a value is at runtime.
+// Syntax: typeof <value>  →  returns a string like "number", "string", etc.
+
+console.log(typeof num);       // "number"
+console.log(typeof name);      // "string"
+console.log(typeof isActive);  // "boolean"
+console.log(typeof something); // "undefined"
+console.log(typeof nothing);   // "object"  ← ⚠️ Known JS bug! null is NOT an object.
+                                //              This quirk exists for historical reasons.
+console.log(typeof id);        // "symbol"
+console.log(typeof bigNum);    // "bigint"
+
+
+
+// ── OBJECTS ──────────────────────────────────────────────────
+// An object groups related data together as key-value pairs.
+// Think of it like a form: each field (key) has a value.
 
 let person = {
-    firstName: "John",
-    lastName: "Doe",
-    age: 30,
+    firstName: "John",    // key: "firstName", value: "John"
+    lastName:  "Doe",
+    age:       30,
     isStudent: false
 };
 
-// Accessing object values
+// Two ways to READ a property:
+
+// 1. Dot notation — clean, readable, most common
 console.log(person.firstName);  // "John"
+
+// 2. Bracket notation — use when the key is dynamic or contains spaces
 console.log(person["age"]);     // 30
 
-// Adding a new property
-person.country = "India";
+// Adding a NEW property — just assign it, no special syntax needed
+person.country = "India";       // person now has a 'country' key
 
-// Modifying existing property
-person.age = 31;
+// Modifying an EXISTING property — same as adding, just overwrite
+person.age = 31;                // age is now 31 instead of 30
 
-
+// Note: even though 'person' is declared with const,
+// you CAN still change its properties.
+// const only prevents reassigning the variable itself (person = something_else).
