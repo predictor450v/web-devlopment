@@ -32,6 +32,8 @@ const JsUser = {};
 📌 METHOD 2: Constructor (Singleton object)
 */
 const tinderUser = new Object();
+// what is new?
+// `new` creates an empty object and sets `this` to it, then returns `this`
 
 /*
 📌 METHOD 3: Object.create()
@@ -155,6 +157,8 @@ user.greeting = function () {
 user.greetingTwo = function () {
     console.log(`Hello JS user, ${this.name}`);
 };
+// $ this is very important in OOP and React
+// $ it allows methods to access other properties of the same object
 
 console.log(user.greeting());
 console.log(user.greetingTwo());
