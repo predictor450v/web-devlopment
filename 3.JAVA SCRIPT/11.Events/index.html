@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive JavaScript Events Documentation - Learn all about JS events with interactive examples">
+    <title>JavaScript Events - Complete Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav id="main-nav">
+        <div class="nav-brand">
+            <span class="nav-icon"></span>
+            <span>JS Events</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#intro">Intro</a></li>
+            <li><a href="#ways-to-add">Adding Events</a></li>
+            <li><a href="#mouse-events">Mouse</a></li>
+            <li><a href="#keyboard-events">Keyboard</a></li>
+            <li><a href="#form-events">Form</a></li>
+            <li><a href="#event-object">Event Object</a></li>
+            <li><a href="#bubbling-capturing">Bubbling</a></li>
+            <li><a href="#delegation">Delegation</a></li>
+            <li><a href="#window-events">Window</a></li>
+            <li><a href="#custom-events">Custom</a></li>
+        </ul>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <header id="hero">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="hero-content">
+            <span class="hero-badge">Complete Guide</span>
+            <h1>JavaScript <span class="gradient-text">Events</span></h1>
+            <p class="hero-subtitle">Master every aspect of JavaScript events — from basics to advanced patterns like bubbling, delegation, and custom events — with interactive demos and detailed explanations.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Sections</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Examples</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Interactive</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ========== SECTION 1: INTRODUCTION ========== -->
+        <section id="intro" class="section">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2>What Are Events?</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>Definition</h3>
+                    <p>An <strong>event</strong> is an action or occurrence that happens in the browser — like a user clicking a button, pressing a key, submitting a form, or the page finishing loading. JavaScript can <em>listen</em> for these events and execute code in response.</p>
+                </div>
+                <div class="info-card">
+                    <h3>How Events Work</h3>
+                    <ol>
+                        <li><strong>Something happens</strong> — user clicks, types, scrolls, etc.</li>
+                        <li><strong>Browser creates an Event object</strong> — containing details about what happened.</li>
+                        <li><strong>Event is dispatched</strong> — the browser sends it to the relevant element.</li>
+                        <li><strong>Event listeners fire</strong> — any attached handler functions execute.</li>
+                    </ol>
+                </div>
+                <div class="info-card highlight-card">
+                    <h3>Common Event Categories</h3>
+                    <div class="tag-grid">
+                        <span class="tag tag-mouse">Mouse Events</span>
+                        <span class="tag tag-keyboard">Keyboard Events</span>
+                        <span class="tag tag-form">Form Events</span>
+                        <span class="tag tag-window">Window Events</span>
+                        <span class="tag tag-touch">Touch Events</span>
+                        <span class="tag tag-drag">Drag Events</span>
+                        <span class="tag tag-clipboard">Clipboard Events</span>
+                        <span class="tag tag-media">Media Events</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 2: WAYS TO ADD EVENTS ========== -->
+        <section id="ways-to-add" class="section">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2>Three Ways to Add Event Listeners</h2>
+            </div>
+            <div class="section-content">
+
+                <!-- Method 1: Inline HTML -->
+                <div class="method-card">
+                    <div class="method-header bad">
+                        <span class="method-badge">Method 1</span>
+                        <span class="method-rating">Not Recommended</span>
+                    </div>
+                    <h3>Inline HTML Event Handler</h3>
+                    <p>Directly in the HTML attribute. Mixes HTML with JS — hard to maintain.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>HTML</span>
+                            <span class="code-lang">inline</span>
+                        </div>
+                        <pre><code>&lt;button onclick="alert('Clicked!')"&gt;Click Me&lt;/button&gt;</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <button onclick="alert('Hello from inline handler!')" class="demo-btn" id="inline-demo-btn">Click Me (Inline)</button>
+                    </div>
+                </div>
+
+                <!-- Method 2: DOM Property -->
+                <div class="method-card">
+                    <div class="method-header okay">
+                        <span class="method-badge">Method 2</span>
+                        <span class="method-rating">Okay, But Limited</span>
+                    </div>
+                    <h3>DOM Property (on-event)</h3>
+                    <p>Assign a function to an element's event property. Only <strong>one handler per event</strong> can be attached this way.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">on-event</span>
+                        </div>
+                        <pre><code>const btn = document.getElementById('myBtn');
+btn.onclick = function() {
+    alert('Clicked!');
+};
+// This REPLACES the previous handler:
+btn.onclick = function() {
+    alert('Only this one runs!');
+};</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <button class="demo-btn" id="dom-property-btn">Click Me (DOM Property)</button>
+                        <div class="output" id="dom-property-output"></div>
+                    </div>
+                </div>
+
+                <!-- Method 3: addEventListener -->
+                <div class="method-card">
+                    <div class="method-header good">
+                        <span class="method-badge">Method 3</span>
+                        <span class="method-rating">Best Practice</span>
+                    </div>
+                    <h3>addEventListener()</h3>
+                    <p>The modern, recommended way. Supports <strong>multiple handlers</strong>, <strong>options</strong> (capture, once, passive), and <strong>removeEventListener()</strong>.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">addEventListener</span>
+                        </div>
+                        <pre><code>const btn = document.getElementById('myBtn');
+
+// Multiple handlers — BOTH will run!
+btn.addEventListener('click', function() {
+    console.log('Handler 1');
+});
+btn.addEventListener('click', function() {
+    console.log('Handler 2');
+});
+
+// Options object:
+btn.addEventListener('click', handler, {
+    capture: false,  // use capturing phase?
+    once: true,      // auto-remove after first fire
+    passive: true    // won't call preventDefault()
+});</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <button class="demo-btn" id="add-event-btn">Click Me (addEventListener)</button>
+                        <div class="output" id="add-event-output"></div>
+                    </div>
+                </div>
+
+                <!-- removeEventListener -->
+                <div class="method-card">
+                    <div class="method-header info">
+                        <span class="method-badge">Bonus</span>
+                        <span class="method-rating">Removing Listeners</span>
+                    </div>
+                    <h3>removeEventListener()</h3>
+                    <p>To remove an event listener, you must pass the <strong>same function reference</strong>. Anonymous functions cannot be removed!</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">remove</span>
+                        </div>
+                        <pre><code>function handleClick() {
+    console.log('Clicked!');
+}
+
+btn.addEventListener('click', handleClick);
+btn.removeEventListener('click', handleClick); // Works
+
+// This WON'T work — different function reference:
+btn.addEventListener('click', () => console.log('Hi'));
+btn.removeEventListener('click', () => console.log('Hi'));</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <button class="demo-btn" id="remove-event-btn">Click Me (Removable)</button>
+                        <button class="demo-btn secondary" id="remove-trigger-btn">Remove Listener</button>
+                        <div class="output" id="remove-event-output"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 3: MOUSE EVENTS ========== -->
+        <section id="mouse-events" class="section">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2>Mouse Events</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>All Mouse Events</h3>
+                    <div class="event-table-wrapper">
+                        <table class="event-table">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Fires When</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>click</code></td><td>Mouse button is pressed and released on an element</td></tr>
+                                <tr><td><code>dblclick</code></td><td>Element is double-clicked</td></tr>
+                                <tr><td><code>mousedown</code></td><td>Mouse button is pressed down</td></tr>
+                                <tr><td><code>mouseup</code></td><td>Mouse button is released</td></tr>
+                                <tr><td><code>mousemove</code></td><td>Mouse pointer moves over an element</td></tr>
+                                <tr><td><code>mouseenter</code></td><td>Mouse enters an element (does NOT bubble)</td></tr>
+                                <tr><td><code>mouseleave</code></td><td>Mouse leaves an element (does NOT bubble)</td></tr>
+                                <tr><td><code>mouseover</code></td><td>Mouse enters an element (DOES bubble)</td></tr>
+                                <tr><td><code>mouseout</code></td><td>Mouse leaves an element (DOES bubble)</td></tr>
+                                <tr><td><code>contextmenu</code></td><td>Right-click (context menu) on an element</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Interactive Mouse Demo -->
+                <div class="demo-card">
+                    <h3>Interactive Mouse Playground</h3>
+                    <p>Interact with the box below to see mouse events fire in real-time:</p>
+                    <div class="mouse-playground" id="mouse-playground">
+                        <span>Hover, click, double-click, or right-click me!</span>
+                        <div class="mouse-coords" id="mouse-coords">X: 0, Y: 0</div>
+                    </div>
+                    <div class="event-log" id="mouse-event-log">
+                        <div class="log-header">
+                            <span>Event Log</span>
+                            <button class="clear-btn" id="clear-mouse-log">Clear</button>
+                        </div>
+                        <div class="log-entries" id="mouse-log-entries"></div>
+                    </div>
+                </div>
+
+                <!-- mouseenter vs mouseover -->
+                <div class="demo-card">
+                    <h3>mouseenter vs mouseover</h3>
+                    <p><code>mouseenter</code> does NOT bubble (fires only on the target element). <code>mouseover</code> DOES bubble (fires on child elements too).</p>
+                    <div class="comparison-grid">
+                        <div class="comparison-box">
+                            <h4>mouseenter <span class="pill">No Bubble</span></h4>
+                            <div class="outer-box" id="mouseenter-outer">
+                                OUTER
+                                <div class="inner-box" id="mouseenter-inner">INNER</div>
+                            </div>
+                            <div class="output small" id="mouseenter-output"></div>
+                        </div>
+                        <div class="comparison-box">
+                            <h4>mouseover <span class="pill bubble">Bubbles</span></h4>
+                            <div class="outer-box" id="mouseover-outer">
+                                OUTER
+                                <div class="inner-box" id="mouseover-inner">INNER</div>
+                            </div>
+                            <div class="output small" id="mouseover-output"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 4: KEYBOARD EVENTS ========== -->
+        <section id="keyboard-events" class="section">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2>Keyboard Events</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>Keyboard Event Types</h3>
+                    <div class="event-table-wrapper">
+                        <table class="event-table">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Fires When</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>keydown</code></td><td>A key is pressed down</td><td>Fires repeatedly if held</td></tr>
+                                <tr><td><code>keyup</code></td><td>A key is released</td><td>Fires once per release</td></tr>
+                                <tr><td><code>keypress</code></td><td>A character key is pressed</td><td><strong>DEPRECATED</strong> — do not use</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Key Properties (Event Object)</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">key properties</span>
+                        </div>
+                        <pre><code>document.addEventListener('keydown', (e) => {
+    e.key;      // "a", "Enter", "ArrowUp", "Shift"
+    e.code;     // "KeyA", "Enter", "ArrowUp", "ShiftLeft"
+    e.keyCode;  // 65 (deprecated, use e.key instead)
+
+    // Modifier keys:
+    e.shiftKey; // true if Shift is held
+    e.ctrlKey;  // true if Ctrl is held
+    e.altKey;   // true if Alt is held
+    e.metaKey;  // true if Meta/Cmd is held
+
+    e.repeat;   // true if key is being held down
+});</code></pre>
+                    </div>
+                </div>
+
+                <!-- Interactive Keyboard Demo -->
+                <div class="demo-card">
+                    <h3>Keyboard Event Tester</h3>
+                    <p>Click the input below and press any key:</p>
+                    <input type="text" id="keyboard-input" class="demo-input" placeholder="Type here to test keyboard events...">
+                    <div class="keyboard-display" id="keyboard-display">
+                        <div class="key-info">
+                            <div class="key-visual" id="key-visual">?</div>
+                            <div class="key-details">
+                                <div><span class="label">e.key:</span> <span id="key-value">—</span></div>
+                                <div><span class="label">e.code:</span> <span id="code-value">—</span></div>
+                                <div><span class="label">e.which:</span> <span id="which-value">—</span></div>
+                                <div><span class="label">Type:</span> <span id="event-type-value">—</span></div>
+                            </div>
+                        </div>
+                        <div class="modifier-keys">
+                            <span class="modifier" id="mod-shift">Shift</span>
+                            <span class="modifier" id="mod-ctrl">Ctrl</span>
+                            <span class="modifier" id="mod-alt">Alt</span>
+                            <span class="modifier" id="mod-meta">Meta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Combos -->
+                <div class="demo-card">
+                    <h3>Detecting Key Combinations</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">combos</span>
+                        </div>
+                        <pre><code>document.addEventListener('keydown', (e) => {
+    // Ctrl + S  (Save shortcut)
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault(); // prevent browser save
+        console.log('Custom save!');
+    }
+
+    // Ctrl + Shift + K
+    if (e.ctrlKey && e.shiftKey && e.key === 'K') {
+        console.log('Secret combo!');
+    }
+
+    // Escape key
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <p>Try pressing <kbd>Ctrl</kbd>+<kbd>S</kbd> or <kbd>Escape</kbd> on this page!</p>
+                        <div class="output" id="combo-output"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 5: FORM EVENTS ========== -->
+        <section id="form-events" class="section">
+            <div class="section-header">
+                <span class="section-number">05</span>
+                <h2>Form Events</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>Form Event Types</h3>
+                    <div class="event-table-wrapper">
+                        <table class="event-table">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Fires When</th>
+                                    <th>Common On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>submit</code></td><td>Form is submitted</td><td><code>&lt;form&gt;</code></td></tr>
+                                <tr><td><code>input</code></td><td>Value changes (every keystroke)</td><td>input, textarea, select</td></tr>
+                                <tr><td><code>change</code></td><td>Value changes and element loses focus</td><td>input, textarea, select</td></tr>
+                                <tr><td><code>focus</code></td><td>Element receives focus</td><td>input, textarea, button</td></tr>
+                                <tr><td><code>blur</code></td><td>Element loses focus</td><td>input, textarea, button</td></tr>
+                                <tr><td><code>focusin</code></td><td>Like focus, but bubbles</td><td>Any focusable element</td></tr>
+                                <tr><td><code>focusout</code></td><td>Like blur, but bubbles</td><td>Any focusable element</td></tr>
+                                <tr><td><code>select</code></td><td>Text is selected in input/textarea</td><td>input, textarea</td></tr>
+                                <tr><td><code>reset</code></td><td>Form is reset</td><td><code>&lt;form&gt;</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- input vs change -->
+                <div class="demo-card">
+                    <h3>input vs change Event</h3>
+                    <p><code>input</code> fires on <strong>every keystroke</strong>. <code>change</code> fires only when the element <strong>loses focus</strong> after the value has changed.</p>
+                    <div class="form-demo-grid">
+                        <div class="form-demo-item">
+                            <label for="input-demo">Type here:</label>
+                            <input type="text" id="input-demo" class="demo-input" placeholder="Watch both outputs...">
+                        </div>
+                        <div class="form-demo-item">
+                            <span class="label">input event:</span>
+                            <div class="output small" id="input-event-output">Type something...</div>
+                        </div>
+                        <div class="form-demo-item">
+                            <span class="label">change event:</span>
+                            <div class="output small" id="change-event-output">Change focus to trigger...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Focus / Blur -->
+                <div class="demo-card">
+                    <h3>focus & blur Events</h3>
+                    <p>Focus fires when an element gains focus, blur fires when it loses focus.</p>
+                    <div class="demo-box">
+                        <input type="text" id="focus-demo" class="demo-input focus-input" placeholder="Click me to focus, click away to blur">
+                        <div class="output" id="focus-output"></div>
+                    </div>
+                </div>
+
+                <!-- Form Submit -->
+                <div class="demo-card">
+                    <h3>Form Submit Event</h3>
+                    <p>The <code>submit</code> event fires when a form is submitted. Use <code>e.preventDefault()</code> to stop the page from reloading.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">submit</span>
+                        </div>
+                        <pre><code>form.addEventListener('submit', (e) => {
+    e.preventDefault();     // ← Stop page reload!
+    const formData = new FormData(e.target);
+    const name = formData.get('name');
+    console.log('Submitted:', name);
+});</code></pre>
+                    </div>
+                    <form id="demo-form" class="demo-form">
+                        <input type="text" name="username" placeholder="Enter your name" class="demo-input" required>
+                        <button type="submit" class="demo-btn">Submit Form</button>
+                    </form>
+                    <div class="output" id="form-output"></div>
+                </div>
+
+                <!-- Select Event -->
+                <div class="demo-card">
+                    <h3>select Event &amp; Clipboard Events</h3>
+                    <p>The <code>select</code> event fires when text is selected. Clipboard events include <code>copy</code>, <code>cut</code>, and <code>paste</code>.</p>
+                    <div class="demo-box">
+                        <input type="text" id="select-demo" class="demo-input" value="Select some of this text!">
+                        <div class="output" id="select-output"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 6: THE EVENT OBJECT ========== -->
+        <section id="event-object" class="section">
+            <div class="section-header">
+                <span class="section-number">06</span>
+                <h2>The Event Object</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>What is the Event Object?</h3>
+                    <p>When an event fires, the browser automatically passes an <strong>Event object</strong> to the handler function. This object contains all the details about the event.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">event object</span>
+                        </div>
+                        <pre><code>element.addEventListener('click', function(event) {
+    // The 'event' parameter (often called 'e') is the Event object
+    console.log(event);
+});</code></pre>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Key Properties &amp; Methods</h3>
+                    <div class="event-table-wrapper">
+                        <table class="event-table">
+                            <thead>
+                                <tr>
+                                    <th>Property / Method</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>e.type</code></td><td>The type of event ("click", "keydown", etc.)</td></tr>
+                                <tr><td><code>e.target</code></td><td>The element that <strong>triggered</strong> the event</td></tr>
+                                <tr><td><code>e.currentTarget</code></td><td>The element the listener is <strong>attached to</strong></td></tr>
+                                <tr><td><code>e.timeStamp</code></td><td>When the event occurred (ms since page load)</td></tr>
+                                <tr><td><code>e.preventDefault()</code></td><td>Stops the default browser action</td></tr>
+                                <tr><td><code>e.stopPropagation()</code></td><td>Stops event from bubbling up</td></tr>
+                                <tr><td><code>e.stopImmediatePropagation()</code></td><td>Stops bubbling AND other listeners on same element</td></tr>
+                                <tr><td><code>e.clientX / e.clientY</code></td><td>Mouse position relative to viewport</td></tr>
+                                <tr><td><code>e.pageX / e.pageY</code></td><td>Mouse position relative to entire page</td></tr>
+                                <tr><td><code>e.offsetX / e.offsetY</code></td><td>Mouse position relative to the target element</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- target vs currentTarget -->
+                <div class="demo-card">
+                    <h3>e.target vs e.currentTarget</h3>
+                    <p><code>e.target</code> = the element you actually clicked. <code>e.currentTarget</code> = the element the listener is attached to. They differ during <strong>event bubbling</strong>.</p>
+                    <div class="target-demo" id="target-demo-parent">
+                        <span>Parent (listener is here)</span>
+                        <button class="demo-btn nested" id="target-demo-child">Child Button (click me!)</button>
+                    </div>
+                    <div class="output" id="target-output"></div>
+                </div>
+
+                <!-- preventDefault -->
+                <div class="demo-card">
+                    <h3>preventDefault()</h3>
+                    <p>Stops the browser's default behavior for an event.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">preventDefault</span>
+                        </div>
+                        <pre><code>// Prevent a link from navigating:
+link.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('Link click blocked!');
+});
+
+// Prevent form submission / page reload:
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+});
+
+// Prevent right-click context menu:
+element.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+});</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <a href="https://google.com" id="prevent-link" class="demo-link">This link won't navigate (preventDefault)</a>
+                        <div class="output" id="prevent-output"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 7: BUBBLING & CAPTURING ========== -->
+        <section id="bubbling-capturing" class="section">
+            <div class="section-header">
+                <span class="section-number">07</span>
+                <h2>Event Bubbling &amp; Capturing</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>Event Propagation Phases</h3>
+                    <p>When an event occurs, it goes through <strong>three phases</strong>:</p>
+                    <div class="phase-diagram">
+                        <div class="phase phase-capture">
+                            <span class="phase-number">1</span>
+                            <strong>Capturing Phase</strong>
+                            <p>Event travels DOWN from <code>window</code> → <code>document</code> → ... → target's parent</p>
+                        </div>
+                        <div class="phase-arrow">→</div>
+                        <div class="phase phase-target">
+                            <span class="phase-number">2</span>
+                            <strong>Target Phase</strong>
+                            <p>Event reaches the actual target element</p>
+                        </div>
+                        <div class="phase-arrow">→</div>
+                        <div class="phase phase-bubble">
+                            <span class="phase-number">3</span>
+                            <strong>Bubbling Phase</strong>
+                            <p>Event travels UP from target's parent → ... → <code>document</code> → <code>window</code></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>What is Bubbling?</h3>
+                    <p>By default, events <strong>bubble up</strong>. If you click a <code>&lt;button&gt;</code> inside a <code>&lt;div&gt;</code>, the click event fires on the button first, then the div, then body, then html, then document.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">bubbling</span>
+                        </div>
+                        <pre><code>// Both handlers fire when inner button is clicked!
+outer.addEventListener('click', () => console.log('Outer clicked'));
+inner.addEventListener('click', () => console.log('Inner clicked'));
+// Output: "Inner clicked" → "Outer clicked"
+
+// To STOP bubbling:
+inner.addEventListener('click', (e) => {
+    e.stopPropagation();   // Outer handler won't fire
+    console.log('Inner clicked — stopped here');
+});</code></pre>
+                    </div>
+                </div>
+
+                <!-- Interactive Bubbling Demo -->
+                <div class="demo-card">
+                    <h3>Bubbling Demo — Click the innermost element</h3>
+                    <div class="bubble-demo" id="bubble-grandparent">
+                        <span class="bubble-label">Grandparent (document.body)</span>
+                        <div class="bubble-layer" id="bubble-parent">
+                            <span class="bubble-label">Parent (&lt;div&gt;)</span>
+                            <div class="bubble-layer inner" id="bubble-child">
+                                <span class="bubble-label">Child (&lt;button&gt;)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="demo-controls">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="stop-propagation-toggle">
+                            <span>Enable stopPropagation() on Child</span>
+                        </label>
+                    </div>
+                    <div class="event-log" id="bubble-event-log">
+                        <div class="log-header">
+                            <span>Propagation Log</span>
+                            <button class="clear-btn" id="clear-bubble-log">Clear</button>
+                        </div>
+                        <div class="log-entries" id="bubble-log-entries"></div>
+                    </div>
+                </div>
+
+                <!-- Capturing -->
+                <div class="demo-card">
+                    <h3>Capturing Phase</h3>
+                    <p>To listen during the <strong>capturing phase</strong> (top-down), pass <code>{ capture: true }</code> as the third argument.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">capture</span>
+                        </div>
+                        <pre><code>// This fires BEFORE the target's own handler
+parent.addEventListener('click', () => {
+    console.log('Parent — Capture phase');
+}, { capture: true });  // or just: }, true);
+
+// Or shorthand with boolean:
+parent.addEventListener('click', handler, true);</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <div class="capture-outer" id="capture-outer">
+                            <span>Outer (capture: true)</span>
+                            <button class="demo-btn" id="capture-inner">Inner Button — Click Me</button>
+                        </div>
+                        <div class="output" id="capture-output"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 8: EVENT DELEGATION ========== -->
+        <section id="delegation" class="section">
+            <div class="section-header">
+                <span class="section-number">08</span>
+                <h2>Event Delegation</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>What is Event Delegation?</h3>
+                    <p>Instead of attaching a listener to <strong>every child element</strong>, attach ONE listener to a <strong>parent element</strong> and use <code>e.target</code> to determine which child was clicked. This is efficient and works for <strong>dynamically added elements</strong>.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">delegation</span>
+                        </div>
+                        <pre><code>// Bad: Adding listener to every item
+document.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', () => {
+        console.log(li.textContent);
+    });
+});
+
+// Good: One listener on the parent (delegation)
+document.querySelector('ul').addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+        console.log(e.target.textContent);
+    }
+    // Also works with classes:
+    if (e.target.classList.contains('item')) {
+        console.log('Item clicked:', e.target.textContent);
+    }
+    // Or closest() for nested elements:
+    const item = e.target.closest('.item');
+    if (item) {
+        console.log('Closest item:', item.textContent);
+    }
+});</code></pre>
+                    </div>
+                </div>
+
+                <!-- Interactive Delegation Demo -->
+                <div class="demo-card">
+                    <h3>Interactive Delegation Demo</h3>
+                    <p>One listener on the <code>&lt;ul&gt;</code> handles ALL items, even new ones:</p>
+                    <div class="delegation-demo">
+                        <ul id="delegation-list" class="delegation-list">
+                            <li class="delegation-item">Item 1 — Click to highlight</li>
+                            <li class="delegation-item">Item 2 — Click to highlight</li>
+                            <li class="delegation-item">Item 3 — Click to highlight</li>
+                        </ul>
+                        <button class="demo-btn" id="add-item-btn">+ Add New Item</button>
+                    </div>
+                    <div class="output" id="delegation-output"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 9: WINDOW / DOCUMENT EVENTS ========== -->
+        <section id="window-events" class="section">
+            <div class="section-header">
+                <span class="section-number">09</span>
+                <h2>Window &amp; Document Events</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>Common Window/Document Events</h3>
+                    <div class="event-table-wrapper">
+                        <table class="event-table">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Fires When</th>
+                                    <th>Listened On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>DOMContentLoaded</code></td><td>HTML is fully parsed (no images/stylesheets yet)</td><td>document</td></tr>
+                                <tr><td><code>load</code></td><td>Everything loaded (images, styles, etc.)</td><td>window</td></tr>
+                                <tr><td><code>beforeunload</code></td><td>User is about to leave the page</td><td>window</td></tr>
+                                <tr><td><code>unload</code></td><td>Page is being unloaded</td><td>window</td></tr>
+                                <tr><td><code>resize</code></td><td>Browser window is resized</td><td>window</td></tr>
+                                <tr><td><code>scroll</code></td><td>Page or element is scrolled</td><td>window / element</td></tr>
+                                <tr><td><code>hashchange</code></td><td>URL hash (#) changes</td><td>window</td></tr>
+                                <tr><td><code>online</code></td><td>Browser goes online</td><td>window</td></tr>
+                                <tr><td><code>offline</code></td><td>Browser goes offline</td><td>window</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>DOMContentLoaded vs load</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">load events</span>
+                        </div>
+                        <pre><code>// Fires when HTML is parsed — FAST, recommended for DOM-ready code
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM is ready!');
+    // Safe to query elements here
+});
+
+// Fires after EVERYTHING loads (images, fonts, etc.) — SLOWER
+window.addEventListener('load', () => {
+    console.log('Page fully loaded!');
+});
+
+// Common pattern (why scripts go at bottom of body):
+// If your &lt;script&gt; is at the end of &lt;body&gt;,
+// the DOM is already parsed — no need to wait!</code></pre>
+                    </div>
+                </div>
+
+                <!-- Live Window Stats -->
+                <div class="demo-card">
+                    <h3>Live Window Stats</h3>
+                    <p>These values update in real-time as you scroll and resize:</p>
+                    <div class="window-stats">
+                        <div class="stat-card">
+                            <span class="stat-icon"></span>
+                            <span class="stat-title">Window Size</span>
+                            <span class="stat-value" id="window-size">—</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon"></span>
+                            <span class="stat-title">Scroll Position</span>
+                            <span class="stat-value" id="scroll-position">—</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon"></span>
+                            <span class="stat-title">Screen Size</span>
+                            <span class="stat-value" id="screen-size">—</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon"></span>
+                            <span class="stat-title">Online Status</span>
+                            <span class="stat-value" id="online-status">—</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 10: CUSTOM EVENTS ========== -->
+        <section id="custom-events" class="section">
+            <div class="section-header">
+                <span class="section-number">10</span>
+                <h2>Custom Events</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>Creating Custom Events</h3>
+                    <p>You can create and dispatch your own custom events using <code>CustomEvent</code>. This is great for building loosely-coupled components.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">CustomEvent</span>
+                        </div>
+                        <pre><code>// 1. Create a custom event
+const myEvent = new CustomEvent('userLoggedIn', {
+    detail: {               // pass any data in 'detail'
+        username: 'JohnDoe',
+        timestamp: Date.now()
+    },
+    bubbles: true,          // should it bubble?
+    cancelable: true        // can it be cancelled?
+});
+
+// 2. Listen for it
+document.addEventListener('userLoggedIn', (e) => {
+    console.log(`${e.detail.username} logged in!`);
+    console.log(`At: ${e.detail.timestamp}`);
+});
+
+// 3. Dispatch it
+document.dispatchEvent(myEvent);</code></pre>
+                    </div>
+                </div>
+
+                <!-- Custom Event Demo -->
+                <div class="demo-card">
+                    <h3>Custom Event Demo</h3>
+                    <p>Click the button to dispatch a custom <code>pizza-ordered</code> event:</p>
+                    <div class="custom-event-demo">
+                        <div class="pizza-form">
+                            <select id="pizza-type" class="demo-select">
+                                <option value="Margherita">Margherita</option>
+                                <option value="Pepperoni">Pepperoni</option>
+                                <option value="Hawaiian">Hawaiian</option>
+                                <option value="BBQ Chicken">BBQ Chicken</option>
+                            </select>
+                            <button class="demo-btn" id="order-pizza-btn">Order Pizza</button>
+                        </div>
+                        <div class="output" id="pizza-output"></div>
+                    </div>
+                </div>
+
+                <!-- once option -->
+                <div class="demo-card">
+                    <h3>The <code>once</code> Option</h3>
+                    <p>Pass <code>{ once: true }</code> to automatically remove the listener after it fires once.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <span class="code-lang">once</span>
+                        </div>
+                        <pre><code>btn.addEventListener('click', () => {
+    console.log('This only fires ONCE!');
+}, { once: true });
+// After first click, listener is automatically removed</code></pre>
+                    </div>
+                    <div class="demo-box">
+                        <button class="demo-btn" id="once-btn">Click Me (only works once!)</button>
+                        <div class="output" id="once-output"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION 11: QUICK REFERENCE ========== -->
+        <section id="quick-ref" class="section">
+            <div class="section-header">
+                <span class="section-number">11</span>
+                <h2>Quick Reference Cheat Sheet</h2>
+            </div>
+            <div class="section-content">
+                <div class="cheat-grid">
+                    <div class="cheat-card">
+                        <h4>Mouse</h4>
+                        <code>click</code> <code>dblclick</code> <code>mousedown</code> <code>mouseup</code> <code>mousemove</code> <code>mouseenter</code> <code>mouseleave</code> <code>mouseover</code> <code>mouseout</code> <code>contextmenu</code> <code>wheel</code>
+                    </div>
+                    <div class="cheat-card">
+                        <h4>Keyboard</h4>
+                        <code>keydown</code> <code>keyup</code> <s><code>keypress</code></s>
+                    </div>
+                    <div class="cheat-card">
+                        <h4>Form</h4>
+                        <code>submit</code> <code>input</code> <code>change</code> <code>focus</code> <code>blur</code> <code>focusin</code> <code>focusout</code> <code>select</code> <code>reset</code>
+                    </div>
+                    <div class="cheat-card">
+                        <h4>Window</h4>
+                        <code>load</code> <code>DOMContentLoaded</code> <code>resize</code> <code>scroll</code> <code>beforeunload</code> <code>hashchange</code> <code>online</code> <code>offline</code>
+                    </div>
+                    <div class="cheat-card">
+                        <h4>Touch</h4>
+                        <code>touchstart</code> <code>touchmove</code> <code>touchend</code> <code>touchcancel</code>
+                    </div>
+                    <div class="cheat-card">
+                        <h4>Drag &amp; Drop</h4>
+                        <code>drag</code> <code>dragstart</code> <code>dragend</code> <code>dragenter</code> <code>dragleave</code> <code>dragover</code> <code>drop</code>
+                    </div>
+                    <div class="cheat-card">
+                        <h4>Clipboard</h4>
+                        <code>copy</code> <code>cut</code> <code>paste</code>
+                    </div>
+                    <div class="cheat-card">
+                        <h4>Animation</h4>
+                        <code>animationstart</code> <code>animationend</code> <code>animationiteration</code> <code>transitionend</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="footer">
+        <div class="footer-content">
+            <p>JavaScript Events — Complete Guide</p>
+            <p class="footer-note">Built for learning. Open the browser console for extra output!</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <button id="scroll-top-btn" class="scroll-top" title="Back to top">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
