@@ -39,5 +39,4 @@ else {
     // Perform wrong calculation
     c = obj[c]
     alert(`The result is ${eval(`${a} ${c} ${b}`)}`) 
-
 }
