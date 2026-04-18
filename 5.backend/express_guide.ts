@@ -20,7 +20,8 @@
  * Librarian = the server
  * Visitor = the client (browser/Postman)
  */
-
+// node --loader ts-node/esm express_guide.ts  // (run with Node's native ESM support and ts-node for TypeScript)
+export {}; // make this file a module to avoid global scope issues
 import express from "express";
 import type { Request, Response, NextFunction, Router } from "express";
 
