@@ -1,0 +1,830 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #1D9E75;
+  --green-light: #E1F5EE;
+  --green-dark: #085041;
+  --teal: #0F6E56;
+  --amber: #BA7517;
+  --amber-light: #FAEEDA;
+  --blue: #185FA5;
+  --blue-light: #E6F1FB;
+  --red: #A32D2D;
+  --red-light: #FCEBEB;
+  --coral: #993C1D;
+}
+body { font-family: var(--font-mono, monospace); background: transparent; }
+
+.doc-root {
+  display: flex;
+  height: 92vh;
+  min-height: 620px;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  background: var(--color-background-primary);
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  border-right: 0.5px solid var(--color-border-tertiary);
+  overflow-y: auto;
+  padding: 12px 0;
+  background: var(--color-background-secondary);
+}
+.sidebar-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 14px 8px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+  user-select: none;
+}
+.nav-item:hover { background: var(--color-background-tertiary); color: var(--color-text-primary); }
+.nav-item.active {
+  border-left: 2px solid var(--green);
+  color: var(--color-text-primary);
+  background: var(--color-background-primary);
+  font-weight: 500;
+}
+.nav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--color-border-secondary);
+  flex-shrink: 0;
+}
+.nav-item.active .nav-dot { background: var(--green); }
+.nav-group { padding: 16px 14px 4px; font-family: var(--font-sans); font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* CONTENT */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+.section { display: none; padding: 28px 32px 40px; animation: fadeIn 0.2s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* FILE HEADER BAR */
+.file-bar {
+  background: var(--color-background-secondary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  padding: 8px 16px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+}
+.file-tab {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 4px 4px 0 0;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--color-text-primary);
+  display: flex; align-items: center; gap: 6px;
+}
+.ts-badge {
+  background: var(--blue);
+  color: #fff;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 500;
+  padding: 1px 4px;
+  font-family: var(--font-sans);
+}
+
+/* CODE BLOCKS */
+.code-block {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  padding: 16px 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin: 12px 0;
+  position: relative;
+}
+.code-block pre { white-space: pre; font-family: var(--font-mono, monospace); }
+.kw { color: #C678DD; }
+.str { color: #98C379; }
+.num { color: #D19A66; }
+.cmt { color: var(--color-text-tertiary); font-style: italic; }
+.fn { color: #61AFEF; }
+.ty { color: #E5C07B; }
+.op { color: var(--color-text-secondary); }
+.prop { color: #E06C75; }
+
+/* PROSE */
+.doc-h1 { font-family: var(--font-sans); font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+.doc-h2 { font-family: var(--font-sans); font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin: 28px 0 10px; display: flex; align-items: center; gap: 8px; }
+.doc-h2::before { content: ''; display: block; width: 3px; height: 16px; background: var(--green); border-radius: 2px; }
+.doc-p { font-family: var(--font-sans); font-size: 14px; line-height: 1.75; color: var(--color-text-secondary); margin: 8px 0; }
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-sans);
+  margin: 2px;
+}
+.tag-green { background: #E1F5EE; color: #085041; }
+.tag-blue { background: #E6F1FB; color: #0C447C; }
+.tag-amber { background: #FAEEDA; color: #633806; }
+.tag-red { background: #FCEBEB; color: #791F1F; }
+
+/* TABLE */
+.doc-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: 13px; margin: 12px 0; }
+.doc-table th { background: var(--color-background-secondary); text-align: left; padding: 8px 12px; font-weight: 500; color: var(--color-text-primary); border-bottom: 0.5px solid var(--color-border-secondary); }
+.doc-table td { padding: 8px 12px; color: var(--color-text-secondary); border-bottom: 0.5px solid var(--color-border-tertiary); }
+.doc-table tr:last-child td { border-bottom: none; }
+.doc-table td:first-child { font-family: var(--font-mono, monospace); font-size: 12px; color: var(--color-text-primary); }
+
+/* CALLOUT */
+.callout {
+  border-left: 3px solid var(--green);
+  background: #E1F5EE;
+  color: #085041;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  margin: 12px 0;
+  line-height: 1.6;
+}
+.callout-warn { border-color: var(--amber); background: #FAEEDA; color: #633806; }
+.callout-info { border-color: var(--blue); background: #E6F1FB; color: #0C447C; }
+
+/* DIVIDER */
+.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 24px 0; }
+
+/* LINE NUMBERS */
+.ln { user-select: none; color: var(--color-text-tertiary); margin-right: 16px; display: inline-block; width: 18px; text-align: right; font-size: 11px; }
+
+/* COMPARE GRID */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+.compare-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+.compare-title { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.compare-item { font-family: var(--font-sans); font-size: 12px; color: var(--color-text-secondary); padding: 3px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.5; }
+.compare-item::before { content: '›'; color: var(--color-text-tertiary); flex-shrink: 0; margin-top: 1px; }
+</style>
+
+<div class="doc-root">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-title">mongodb.ts</div>
+  <div class="nav-group">Fundamentals</div>
+  <div class="nav-item active" onclick="show('intro')"><div class="nav-dot"></div>Introduction</div>
+  <div class="nav-item" onclick="show('sql-vs-nosql')"><div class="nav-dot"></div>SQL vs NoSQL</div>
+  <div class="nav-item" onclick="show('concepts')"><div class="nav-dot"></div>Core Concepts</div>
+  <div class="nav-group">Setup</div>
+  <div class="nav-item" onclick="show('connect')"><div class="nav-dot"></div>Connecting</div>
+  <div class="nav-item" onclick="show('schema')"><div class="nav-dot"></div>Schema & Models</div>
+  <div class="nav-group">CRUD</div>
+  <div class="nav-item" onclick="show('create')"><div class="nav-dot"></div>Create</div>
+  <div class="nav-item" onclick="show('read')"><div class="nav-dot"></div>Read / Query</div>
+  <div class="nav-item" onclick="show('update')"><div class="nav-dot"></div>Update</div>
+  <div class="nav-item" onclick="show('delete')"><div class="nav-dot"></div>Delete</div>
+  <div class="nav-group">Advanced</div>
+  <div class="nav-item" onclick="show('aggregation')"><div class="nav-dot"></div>Aggregation</div>
+  <div class="nav-item" onclick="show('indexes')"><div class="nav-dot"></div>Indexes</div>
+  <div class="nav-item" onclick="show('relations')"><div class="nav-dot"></div>Relationships</div>
+  <div class="nav-item" onclick="show('errors')"><div class="nav-dot"></div>Error Handling</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content" id="content-area">
+
+<!-- FILE BAR -->
+<div class="file-bar">
+  <div class="file-tab">
+    <span class="ts-badge">TS</span>
+    <span id="filename-display">intro.ts</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="section active" id="sec-intro">
+  <div class="doc-h1">What is MongoDB?</div>
+  <div class="doc-p">MongoDB is a <strong>document-oriented NoSQL database</strong>. Instead of rows in tables, it stores JSON-like documents. Each document is a self-contained unit of data — flexible, nested, and schema-optional by default.</div>
+
+  <div class="callout">
+    Think of MongoDB as storing <code>Record&lt;string, any&gt;</code> objects directly to disk — except they're queryable, indexed, and clustered.
+  </div>
+
+  <div class="code-block"><pre><span class="cmt">// A MongoDB document — this IS your data model</span>
+<span class="kw">const</span> <span class="prop">user</span> <span class="op">=</span> {
+  <span class="prop">_id</span>: <span class="fn">ObjectId</span>(<span class="str">"64f1a2b3c4d5e6f7a8b9c0d1"</span>),
+  <span class="prop">name</span>: <span class="str">"Ayushman"</span>,
+  <span class="prop">email</span>: <span class="str">"ayushman@example.com"</span>,
+  <span class="prop">skills</span>: [<span class="str">"TypeScript"</span>, <span class="str">"MongoDB"</span>, <span class="str">"React"</span>],
+  <span class="prop">address</span>: {             <span class="cmt">// embedded sub-document</span>
+    <span class="prop">city</span>: <span class="str">"Kolkata"</span>,
+    <span class="prop">state</span>: <span class="str">"WB"</span>
+  },
+  <span class="prop">joinedAt</span>: <span class="kw">new</span> <span class="ty">Date</span>()
+};</pre></div>
+
+  <div class="doc-h2">Key Characteristics</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px;">
+    <span class="tag tag-green">Document-oriented</span>
+    <span class="tag tag-green">Schema-flexible</span>
+    <span class="tag tag-blue">Horizontally scalable</span>
+    <span class="tag tag-blue">BSON storage</span>
+    <span class="tag tag-amber">Embedded documents</span>
+    <span class="tag tag-amber">Rich query language</span>
+  </div>
+
+  <div class="doc-h2">Where MongoDB Fits</div>
+  <table class="doc-table">
+    <tr><th>Use Case</th><th>Why MongoDB?</th></tr>
+    <tr><td>User profiles</td><td>Nested data, no fixed schema</td></tr>
+    <tr><td>Product catalogs</td><td>Varying attributes per product</td></tr>
+    <tr><td>Real-time analytics</td><td>Fast writes, aggregation pipeline</td></tr>
+    <tr><td>Content management</td><td>Flexible document structure</td></tr>
+    <tr><td>IoT / event logs</td><td>High write throughput</td></tr>
+  </table>
+
+  <div class="callout callout-warn">MongoDB is NOT ideal for: multi-table transactions at scale, highly relational data with complex joins, or strict schema enforcement (use PostgreSQL for those).</div>
+</div>
+
+<!-- SQL vs NOSQL -->
+<div class="section" id="sec-sql-vs-nosql">
+  <div class="doc-h1">SQL vs NoSQL</div>
+  <div class="doc-p">Understanding when to pick which is more important than knowing both deeply. Here's the mental model:</div>
+
+  <div class="compare-grid">
+    <div class="compare-card" style="border-color:#185FA5">
+      <div class="compare-title" style="color:#185FA5">🗃 SQL (Relational)</div>
+      <div class="compare-item">Fixed schema — tables with columns</div>
+      <div class="compare-item">Joins across normalized tables</div>
+      <div class="compare-item">ACID transactions built-in</div>
+      <div class="compare-item">Scales vertically (bigger server)</div>
+      <div class="compare-item">Great for: banking, ERP, strict data integrity</div>
+      <div class="compare-item">Examples: PostgreSQL, MySQL, SQLite</div>
+    </div>
+    <div class="compare-card" style="border-color:#1D9E75">
+      <div class="compare-title" style="color:#1D9E75">🍃 NoSQL (MongoDB)</div>
+      <div class="compare-item">Flexible schema — documents can vary</div>
+      <div class="compare-item">Embedded docs instead of joins</div>
+      <div class="compare-item">Multi-doc transactions (v4.0+)</div>
+      <div class="compare-item">Scales horizontally (sharding)</div>
+      <div class="compare-item">Great for: catalogs, CMS, real-time apps</div>
+      <div class="compare-item">Examples: MongoDB, DynamoDB, CouchDB</div>
+    </div>
+  </div>
+
+  <div class="doc-h2">Terminology Mapping</div>
+  <table class="doc-table">
+    <tr><th>SQL Term</th><th>MongoDB Equivalent</th><th>Notes</th></tr>
+    <tr><td>Database</td><td>Database</td><td>Same concept</td></tr>
+    <tr><td>Table</td><td>Collection</td><td>No fixed schema</td></tr>
+    <tr><td>Row</td><td>Document</td><td>BSON (binary JSON)</td></tr>
+    <tr><td>Column</td><td>Field</td><td>Per-document fields</td></tr>
+    <tr><td>Primary Key</td><td>_id</td><td>ObjectId by default</td></tr>
+    <tr><td>Foreign Key</td><td>Reference / embed</td><td>Manual or ObjectId ref</td></tr>
+    <tr><td>JOIN</td><td>$lookup / embed</td><td>Prefer embedding</td></tr>
+    <tr><td>INDEX</td><td>Index</td><td>Same concept</td></tr>
+  </table>
+
+  <div class="doc-h2">Same Query, Two Worlds</div>
+  <div class="code-block"><pre><span class="cmt">// SQL: Get users from Kolkata</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> city = <span class="str">'Kolkata'</span>;
+
+<span class="cmt">// MongoDB equivalent</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">"address.city"</span>: <span class="str">"Kolkata"</span> });</pre></div>
+</div>
+
+<!-- CORE CONCEPTS -->
+<div class="section" id="sec-concepts">
+  <div class="doc-h1">Core Concepts</div>
+
+  <div class="doc-h2">BSON — What MongoDB Actually Stores</div>
+  <div class="doc-p">MongoDB stores data as <strong>BSON</strong> (Binary JSON) — a superset of JSON with extra types like ObjectId, Date, and Binary. You write JSON, Mongo stores BSON.</div>
+
+  <div class="code-block"><pre><span class="cmt">// BSON types you'll encounter in TypeScript</span>
+<span class="kw">import</span> { <span class="ty">ObjectId</span>, <span class="ty">Binary</span> } <span class="kw">from</span> <span class="str">"mongodb"</span>;
+
+<span class="kw">interface</span> <span class="ty">BsonExamples</span> {
+  _id: <span class="ty">ObjectId</span>;         <span class="cmt">// 12-byte unique ID</span>
+  createdAt: <span class="ty">Date</span>;       <span class="cmt">// native Date</span>
+  score: <span class="ty">number</span>;         <span class="cmt">// int32 / double</span>
+  active: <span class="ty">boolean</span>;
+  avatar: <span class="ty">Binary</span>;        <span class="cmt">// binary blob</span>
+  tags: <span class="ty">string</span>[];        <span class="cmt">// arrays are native</span>
+  meta: <span class="ty">Record</span>&lt;<span class="ty">string</span>, <span class="ty">unknown</span>&gt;; <span class="cmt">// embedded doc</span>
+}</pre></div>
+
+  <div class="doc-h2">ObjectId</div>
+  <div class="doc-p">Every document gets a unique <code>_id</code>. The default ObjectId encodes timestamp + machine + process + counter — 24-char hex string.</div>
+
+  <div class="code-block"><pre><span class="kw">import</span> { <span class="ty">ObjectId</span> } <span class="kw">from</span> <span class="str">"mongodb"</span>;
+
+<span class="kw">const</span> id = <span class="kw">new</span> <span class="ty">ObjectId</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(id.<span class="fn">toString</span>());   <span class="cmt">// "64f1a2b3c4d5e6f7a8b9c0d1"</span>
+<span class="fn">console</span>.<span class="fn">log</span>(id.<span class="fn">getTimestamp</span>()); <span class="cmt">// Date it was created</span>
+
+<span class="cmt">// Convert string → ObjectId for queries</span>
+<span class="kw">const</span> fromStr = <span class="kw">new</span> <span class="ty">ObjectId</span>(<span class="str">"64f1a2b3c4d5e6f7a8b9c0d1"</span>);</pre></div>
+
+  <div class="doc-h2">Collections</div>
+  <div class="doc-p">A collection is like a table but with no enforced schema. Documents in the same collection can have different fields. Mongoose adds the schema layer back in TypeScript.</div>
+
+  <div class="callout callout-info">Rule of thumb: data that is queried together should live together. If you always fetch a user with their address, embed the address. If you query addresses independently, separate them.</div>
+</div>
+
+<!-- CONNECT -->
+<div class="section" id="sec-connect">
+  <div class="doc-h1">Connecting to MongoDB</div>
+
+  <div class="doc-h2">Option 1 — Native Driver</div>
+  <div class="code-block"><pre><span class="cmt">// db/client.ts</span>
+<span class="kw">import</span> { <span class="ty">MongoClient</span>, <span class="ty">Db</span> } <span class="kw">from</span> <span class="str">"mongodb"</span>;
+
+<span class="kw">const</span> URI = <span class="fn">process</span>.<span class="prop">env</span>.<span class="prop">MONGO_URI</span> ?? <span class="str">"mongodb://localhost:27017"</span>;
+
+<span class="kw">let</span> client: <span class="ty">MongoClient</span>;
+<span class="kw">let</span> db: <span class="ty">Db</span>;
+
+<span class="kw">export async function</span> <span class="fn">connectDB</span>(): <span class="ty">Promise</span>&lt;<span class="ty">Db</span>&gt; {
+  <span class="kw">if</span> (db) <span class="kw">return</span> db;
+  client = <span class="kw">new</span> <span class="ty">MongoClient</span>(URI);
+  <span class="kw">await</span> client.<span class="fn">connect</span>();
+  db = client.<span class="fn">db</span>(<span class="str">"myapp"</span>);
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"✅ MongoDB connected"</span>);
+  <span class="kw">return</span> db;
+}</pre></div>
+
+  <div class="doc-h2">Option 2 — Mongoose (Recommended for MERN)</div>
+  <div class="code-block"><pre><span class="cmt">// db/mongoose.ts</span>
+<span class="kw">import</span> mongoose <span class="kw">from</span> <span class="str">"mongoose"</span>;
+
+<span class="kw">const</span> URI = <span class="fn">process</span>.<span class="prop">env</span>.<span class="prop">MONGO_URI</span>!;
+
+<span class="kw">export async function</span> <span class="fn">connectDB</span>(): <span class="ty">Promise</span>&lt;<span class="ty">void</span>&gt; {
+  <span class="kw">try</span> {
+    <span class="kw">await</span> mongoose.<span class="fn">connect</span>(URI, {
+      <span class="prop">dbName</span>: <span class="str">"myapp"</span>,
+    });
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"✅ Mongoose connected"</span>);
+  } <span class="kw">catch</span> (err) {
+    <span class="fn">console</span>.<span class="fn">error</span>(<span class="str">"❌ DB connection failed:"</span>, err);
+    <span class="fn">process</span>.<span class="fn">exit</span>(<span class="num">1</span>);
+  }
+}
+
+<span class="cmt">// Call in server entry point</span>
+<span class="cmt">// app.ts → connectDB().then(() => app.listen(3000))</span></pre></div>
+
+  <div class="callout callout-warn">Always store your <code>MONGO_URI</code> in <code>.env</code> and add <code>.env</code> to <code>.gitignore</code>. Never hardcode credentials.</div>
+</div>
+
+<!-- SCHEMA -->
+<div class="section" id="sec-schema">
+  <div class="doc-h1">Schema & Models with Mongoose</div>
+  <div class="doc-p">Mongoose brings structure to MongoDB. You define a schema → create a model → use the model to interact with a collection.</div>
+
+  <div class="doc-h2">Defining a Schema (TypeScript pattern)</div>
+  <div class="code-block"><pre><span class="cmt">// models/User.ts</span>
+<span class="kw">import</span> { <span class="ty">Schema</span>, <span class="ty">model</span>, <span class="ty">Document</span>, <span class="ty">Types</span> } <span class="kw">from</span> <span class="str">"mongoose"</span>;
+
+<span class="cmt">// 1. TypeScript interface (what the doc looks like)</span>
+<span class="kw">interface</span> <span class="ty">IUser</span> <span class="kw">extends</span> <span class="ty">Document</span> {
+  <span class="prop">name</span>: <span class="ty">string</span>;
+  <span class="prop">email</span>: <span class="ty">string</span>;
+  <span class="prop">age</span>?: <span class="ty">number</span>;
+  <span class="prop">role</span>: <span class="str">"admin"</span> | <span class="str">"user"</span>;
+  <span class="prop">skills</span>: <span class="ty">string</span>[];
+  <span class="prop">createdAt</span>: <span class="ty">Date</span>;
+}
+
+<span class="cmt">// 2. Mongoose schema (validation + defaults)</span>
+<span class="kw">const</span> userSchema = <span class="kw">new</span> <span class="ty">Schema</span>&lt;<span class="ty">IUser</span>&gt;(
+  {
+    <span class="prop">name</span>:  { <span class="prop">type</span>: <span class="ty">String</span>,  <span class="prop">required</span>: <span class="kw">true</span>,  <span class="prop">trim</span>: <span class="kw">true</span> },
+    <span class="prop">email</span>: { <span class="prop">type</span>: <span class="ty">String</span>,  <span class="prop">required</span>: <span class="kw">true</span>,  <span class="prop">unique</span>: <span class="kw">true</span>, <span class="prop">lowercase</span>: <span class="kw">true</span> },
+    <span class="prop">age</span>:   { <span class="prop">type</span>: <span class="ty">Number</span>,  <span class="prop">min</span>: <span class="num">0</span>,  <span class="prop">max</span>: <span class="num">120</span> },
+    <span class="prop">role</span>:  { <span class="prop">type</span>: <span class="ty">String</span>,  <span class="prop">enum</span>: [<span class="str">"admin"</span>, <span class="str">"user"</span>], <span class="prop">default</span>: <span class="str">"user"</span> },
+    <span class="prop">skills</span>: [{ <span class="prop">type</span>: <span class="ty">String</span> }],
+  },
+  { <span class="prop">timestamps</span>: <span class="kw">true</span> }  <span class="cmt">// auto adds createdAt, updatedAt</span>
+);
+
+<span class="cmt">// 3. Export the model</span>
+<span class="kw">export const</span> User = <span class="fn">model</span>&lt;<span class="ty">IUser</span>&gt;(<span class="str">"User"</span>, userSchema);</pre></div>
+
+  <div class="doc-h2">Schema Validation Options</div>
+  <table class="doc-table">
+    <tr><th>Option</th><th>Type</th><th>Effect</th></tr>
+    <tr><td>required</td><td>boolean</td><td>Field must be present</td></tr>
+    <tr><td>unique</td><td>boolean</td><td>Creates unique index</td></tr>
+    <tr><td>default</td><td>any</td><td>Default value if not set</td></tr>
+    <tr><td>min / max</td><td>number</td><td>Range validation</td></tr>
+    <tr><td>minlength</td><td>number</td><td>String length</td></tr>
+    <tr><td>enum</td><td>array</td><td>Allowed values</td></tr>
+    <tr><td>trim</td><td>boolean</td><td>Strips whitespace</td></tr>
+    <tr><td>lowercase</td><td>boolean</td><td>Converts to lowercase</td></tr>
+    <tr><td>validate</td><td>function</td><td>Custom validator</td></tr>
+  </table>
+</div>
+
+<!-- CREATE -->
+<div class="section" id="sec-create">
+  <div class="doc-h1">Create — Inserting Documents</div>
+
+  <div class="doc-h2">save() — single document</div>
+  <div class="code-block"><pre><span class="kw">import</span> { User } <span class="kw">from</span> <span class="str">"./models/User"</span>;
+
+<span class="kw">const</span> newUser = <span class="kw">new</span> User({
+  <span class="prop">name</span>: <span class="str">"Ayushman"</span>,
+  <span class="prop">email</span>: <span class="str">"ayushman@example.com"</span>,
+  <span class="prop">role</span>: <span class="str">"user"</span>,
+  <span class="prop">skills</span>: [<span class="str">"TypeScript"</span>, <span class="str">"React"</span>],
+});
+
+<span class="kw">const</span> saved = <span class="kw">await</span> newUser.<span class="fn">save</span>();
+<span class="fn">console</span>.<span class="fn">log</span>(saved._id); <span class="cmt">// ObjectId assigned by MongoDB</span></pre></div>
+
+  <div class="doc-h2">create() — shorthand</div>
+  <div class="code-block"><pre><span class="cmt">// Equivalent to new User({...}).save()</span>
+<span class="kw">const</span> user = <span class="kw">await</span> User.<span class="fn">create</span>({
+  <span class="prop">name</span>: <span class="str">"Alice"</span>,
+  <span class="prop">email</span>: <span class="str">"alice@example.com"</span>,
+});
+<span class="fn">console</span>.<span class="fn">log</span>(user.<span class="prop">createdAt</span>); <span class="cmt">// auto from timestamps: true</span></pre></div>
+
+  <div class="doc-h2">insertMany() — bulk insert</div>
+  <div class="code-block"><pre><span class="kw">const</span> users: <span class="ty">IUser</span>[] = [
+  { <span class="prop">name</span>: <span class="str">"Bob"</span>,   <span class="prop">email</span>: <span class="str">"bob@x.com"</span>,   <span class="prop">role</span>: <span class="str">"user"</span> },
+  { <span class="prop">name</span>: <span class="str">"Carol"</span>, <span class="prop">email</span>: <span class="str">"carol@x.com"</span>, <span class="prop">role</span>: <span class="str">"admin"</span> },
+];
+
+<span class="kw">const</span> result = <span class="kw">await</span> User.<span class="fn">insertMany</span>(users);
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Inserted ${result.length} users`</span>);</pre></div>
+
+  <div class="callout">When you call <code>create()</code>, Mongoose runs all validators defined in your schema before the document hits the database.</div>
+</div>
+
+<!-- READ -->
+<div class="section" id="sec-read">
+  <div class="doc-h1">Read — Querying Documents</div>
+
+  <div class="doc-h2">Basic Finders</div>
+  <div class="code-block"><pre><span class="cmt">// Find ALL documents</span>
+<span class="kw">const</span> all = <span class="kw">await</span> User.<span class="fn">find</span>();
+
+<span class="cmt">// Find with filter</span>
+<span class="kw">const</span> admins = <span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">role</span>: <span class="str">"admin"</span> });
+
+<span class="cmt">// Find ONE document</span>
+<span class="kw">const</span> user = <span class="kw">await</span> User.<span class="fn">findOne</span>({ <span class="prop">email</span>: <span class="str">"alice@example.com"</span> });
+
+<span class="cmt">// Find by _id</span>
+<span class="kw">const</span> byId = <span class="kw">await</span> User.<span class="fn">findById</span>(<span class="str">"64f1a2b3c4d5e6f7a8b9c0d1"</span>);
+
+<span class="cmt">// Select only certain fields (projection)</span>
+<span class="kw">const</span> names = <span class="kw">await</span> User.<span class="fn">find</span>({}).<span class="fn">select</span>(<span class="str">"name email -_id"</span>);</pre></div>
+
+  <div class="doc-h2">Query Operators</div>
+  <div class="code-block"><pre><span class="cmt">// Comparison operators</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">age</span>: { <span class="prop">$gt</span>: <span class="num">18</span>, <span class="prop">$lt</span>: <span class="num">30</span> } });  <span class="cmt">// 18 < age < 30</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">age</span>: { <span class="prop">$gte</span>: <span class="num">21</span> } });          <span class="cmt">// age >= 21</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">role</span>: { <span class="prop">$in</span>: [<span class="str">"admin"</span>, <span class="str">"mod"</span>] } });
+
+<span class="cmt">// Logical operators</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({
+  <span class="prop">$or</span>: [
+    { <span class="prop">role</span>: <span class="str">"admin"</span> },
+    { <span class="prop">age</span>: { <span class="prop">$lt</span>: <span class="num">18</span> } }
+  ]
+});
+
+<span class="cmt">// Array query — contains element</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">skills</span>: <span class="str">"TypeScript"</span> });
+
+<span class="cmt">// Nested field query (dot notation)</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">"address.city"</span>: <span class="str">"Kolkata"</span> });
+
+<span class="cmt">// Regex search</span>
+<span class="kw">await</span> User.<span class="fn">find</span>({ <span class="prop">name</span>: { <span class="prop">$regex</span>: <span class="str">/^ayu/i</span> } });</pre></div>
+
+  <div class="doc-h2">Chaining: Sort, Limit, Skip</div>
+  <div class="code-block"><pre><span class="cmt">// Pagination pattern</span>
+<span class="kw">const</span> page = <span class="num">2</span>;
+<span class="kw">const</span> limit = <span class="num">10</span>;
+
+<span class="kw">const</span> users = <span class="kw">await</span> User
+  .<span class="fn">find</span>({ <span class="prop">role</span>: <span class="str">"user"</span> })
+  .<span class="fn">sort</span>({ <span class="prop">createdAt</span>: -<span class="num">1</span> })   <span class="cmt">// newest first</span>
+  .<span class="fn">skip</span>((page - <span class="num">1</span>) * limit)
+  .<span class="fn">limit</span>(limit)
+  .<span class="fn">lean</span>();                    <span class="cmt">// returns plain JS objects, faster</span></pre></div>
+
+  <div class="callout callout-info"><code>.lean()</code> skips Mongoose document hydration and returns plain objects. Much faster for read-only responses — use it in API GET endpoints.</div>
+</div>
+
+<!-- UPDATE -->
+<div class="section" id="sec-update">
+  <div class="doc-h1">Update — Modifying Documents</div>
+
+  <div class="doc-h2">findByIdAndUpdate</div>
+  <div class="code-block"><pre><span class="cmt">// Returns the UPDATED document (new: true)</span>
+<span class="kw">const</span> updated = <span class="kw">await</span> User.<span class="fn">findByIdAndUpdate</span>(
+  <span class="str">"64f1a2b3c4d5e6f7a8b9c0d1"</span>,
+  { <span class="prop">$set</span>: { <span class="prop">name</span>: <span class="str">"Ayush"</span>, <span class="prop">age</span>: <span class="num">22</span> } },
+  { <span class="prop">new</span>: <span class="kw">true</span>, <span class="prop">runValidators</span>: <span class="kw">true</span> }
+);
+
+<span class="cmt">// Upsert: create if not exists</span>
+<span class="kw">await</span> User.<span class="fn">findOneAndUpdate</span>(
+  { <span class="prop">email</span>: <span class="str">"new@x.com"</span> },
+  { <span class="prop">$set</span>: { <span class="prop">name</span>: <span class="str">"New User"</span> } },
+  { <span class="prop">upsert</span>: <span class="kw">true</span>, <span class="prop">new</span>: <span class="kw">true</span> }
+);</pre></div>
+
+  <div class="doc-h2">Update Operators</div>
+  <table class="doc-table">
+    <tr><th>Operator</th><th>What it does</th><th>Example</th></tr>
+    <tr><td>$set</td><td>Set field value</td><td><code>$set: { age: 25 }</code></td></tr>
+    <tr><td>$unset</td><td>Remove field</td><td><code>$unset: { age: "" }</code></td></tr>
+    <tr><td>$inc</td><td>Increment number</td><td><code>$inc: { score: 1 }</code></td></tr>
+    <tr><td>$push</td><td>Append to array</td><td><code>$push: { skills: "Vue" }</code></td></tr>
+    <tr><td>$pull</td><td>Remove from array</td><td><code>$pull: { skills: "Vue" }</code></td></tr>
+    <tr><td>$addToSet</td><td>Push if not exists</td><td><code>$addToSet: { tags: "js" }</code></td></tr>
+    <tr><td>$rename</td><td>Rename a field</td><td><code>$rename: { nm: "name" }</code></td></tr>
+  </table>
+
+  <div class="doc-h2">updateMany — bulk update</div>
+  <div class="code-block"><pre><span class="cmt">// Set all users with no role to "user"</span>
+<span class="kw">const</span> result = <span class="kw">await</span> User.<span class="fn">updateMany</span>(
+  { <span class="prop">role</span>: { <span class="prop">$exists</span>: <span class="kw">false</span> } },
+  { <span class="prop">$set</span>: { <span class="prop">role</span>: <span class="str">"user"</span> } }
+);
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Modified: ${result.modifiedCount}`</span>);</pre></div>
+
+  <div class="callout callout-warn">Always use <code>$set</code> (or other operators) in updates. Passing a plain object replaces the entire document — you'll lose all unspecified fields.</div>
+</div>
+
+<!-- DELETE -->
+<div class="section" id="sec-delete">
+  <div class="doc-h1">Delete — Removing Documents</div>
+
+  <div class="doc-h2">findByIdAndDelete</div>
+  <div class="code-block"><pre><span class="cmt">// Delete one by ID — returns deleted doc or null</span>
+<span class="kw">const</span> deleted = <span class="kw">await</span> User.<span class="fn">findByIdAndDelete</span>(<span class="str">"64f1a2b..."</span>);
+
+<span class="kw">if</span> (!deleted) {
+  <span class="kw">throw new</span> <span class="ty">Error</span>(<span class="str">"User not found"</span>);
+}
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Deleted: ${deleted.name}`</span>);</pre></div>
+
+  <div class="doc-h2">deleteOne / deleteMany</div>
+  <div class="code-block"><pre><span class="cmt">// Delete one matching document</span>
+<span class="kw">await</span> User.<span class="fn">deleteOne</span>({ <span class="prop">email</span>: <span class="str">"spam@x.com"</span> });
+
+<span class="cmt">// Delete multiple</span>
+<span class="kw">const</span> res = <span class="kw">await</span> User.<span class="fn">deleteMany</span>({ <span class="prop">role</span>: <span class="str">"banned"</span> });
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Deleted: ${res.deletedCount} users`</span>);
+
+<span class="cmt">// Soft delete pattern (recommended)</span>
+<span class="kw">await</span> User.<span class="fn">findByIdAndUpdate</span>(id, {
+  <span class="prop">$set</span>: { <span class="prop">deletedAt</span>: <span class="kw">new</span> <span class="ty">Date</span>(), <span class="prop">isDeleted</span>: <span class="kw">true</span> }
+});</pre></div>
+
+  <div class="callout callout-warn">In production apps, prefer <strong>soft deletes</strong> (set a <code>deletedAt</code> field) over actually removing data. Hard deletes are irreversible and cause audit trail problems.</div>
+</div>
+
+<!-- AGGREGATION -->
+<div class="section" id="sec-aggregation">
+  <div class="doc-h1">Aggregation Pipeline</div>
+  <div class="doc-p">The aggregation pipeline is MongoDB's most powerful feature. Documents flow through a series of stages, each transforming the data. Think of it as a Unix pipe for your documents.</div>
+
+  <div class="doc-h2">Pipeline Stages</div>
+  <div class="code-block"><pre><span class="kw">const</span> result = <span class="kw">await</span> User.<span class="fn">aggregate</span>([
+  <span class="cmt">// Stage 1: Filter</span>
+  { <span class="prop">$match</span>: { <span class="prop">role</span>: <span class="str">"user"</span>, <span class="prop">age</span>: { <span class="prop">$gte</span>: <span class="num">18</span> } } },
+
+  <span class="cmt">// Stage 2: Group + count</span>
+  {
+    <span class="prop">$group</span>: {
+      <span class="prop">_id</span>: <span class="str">"$address.city"</span>,
+      <span class="prop">count</span>:    { <span class="prop">$sum</span>: <span class="num">1</span> },
+      <span class="prop">avgAge</span>:   { <span class="prop">$avg</span>: <span class="str">"$age"</span> },
+      <span class="prop">minAge</span>:   { <span class="prop">$min</span>: <span class="str">"$age"</span> },
+    }
+  },
+
+  <span class="cmt">// Stage 3: Sort by count desc</span>
+  { <span class="prop">$sort</span>: { <span class="prop">count</span>: -<span class="num">1</span> } },
+
+  <span class="cmt">// Stage 4: Limit results</span>
+  { <span class="prop">$limit</span>: <span class="num">5</span> },
+
+  <span class="cmt">// Stage 5: Rename fields</span>
+  {
+    <span class="prop">$project</span>: {
+      <span class="prop">_id</span>: <span class="num">0</span>,
+      <span class="prop">city</span>: <span class="str">"$_id"</span>,
+      <span class="prop">count</span>: <span class="num">1</span>,
+      <span class="prop">avgAge</span>: { <span class="prop">$round</span>: [<span class="str">"$avgAge"</span>, <span class="num">1</span>] }
+    }
+  }
+]);
+<span class="cmt">// result: [{ city: "Kolkata", count: 42, avgAge: 24.5 }, ...]</span></pre></div>
+
+  <div class="doc-h2">$lookup — the JOIN equivalent</div>
+  <div class="code-block"><pre><span class="cmt">// Join orders with their user</span>
+<span class="kw">await</span> Order.<span class="fn">aggregate</span>([
+  {
+    <span class="prop">$lookup</span>: {
+      <span class="prop">from</span>: <span class="str">"users"</span>,         <span class="cmt">// collection to join</span>
+      <span class="prop">localField</span>: <span class="str">"userId"</span>,  <span class="cmt">// field in Order</span>
+      <span class="prop">foreignField</span>: <span class="str">"_id"</span>,  <span class="cmt">// field in User</span>
+      <span class="prop">as</span>: <span class="str">"user"</span>             <span class="cmt">// output array field</span>
+    }
+  },
+  { <span class="prop">$unwind</span>: <span class="str">"$user"</span> }       <span class="cmt">// flatten the array</span>
+]);</pre></div>
+
+  <div class="callout callout-info">The aggregation pipeline is how you write complex reports, analytics queries, and data transformations in MongoDB — no separate analytics tool needed for most cases.</div>
+</div>
+
+<!-- INDEXES -->
+<div class="section" id="sec-indexes">
+  <div class="doc-h1">Indexes</div>
+  <div class="doc-p">Without an index, every query scans the entire collection (COLLSCAN). Indexes make reads fast at the cost of slightly slower writes and storage.</div>
+
+  <div class="doc-h2">Creating Indexes in Mongoose</div>
+  <div class="code-block"><pre><span class="kw">const</span> userSchema = <span class="kw">new</span> <span class="ty">Schema</span>({
+  email: { <span class="prop">type</span>: <span class="ty">String</span>, <span class="prop">unique</span>: <span class="kw">true</span> }, <span class="cmt">// auto creates index</span>
+  name:  { <span class="prop">type</span>: <span class="ty">String</span>, <span class="prop">index</span>: <span class="kw">true</span> },   <span class="cmt">// single field index</span>
+  age:   <span class="ty">Number</span>,
+});
+
+<span class="cmt">// Compound index (order matters!)</span>
+userSchema.<span class="fn">index</span>({ <span class="prop">role</span>: <span class="num">1</span>, <span class="prop">createdAt</span>: -<span class="num">1</span> });
+
+<span class="cmt">// Text index for search</span>
+userSchema.<span class="fn">index</span>({ <span class="prop">name</span>: <span class="str">"text"</span>, <span class="prop">bio</span>: <span class="str">"text"</span> });
+
+<span class="cmt">// TTL index — auto-delete after 1 hour</span>
+userSchema.<span class="fn">index</span>(
+  { <span class="prop">createdAt</span>: <span class="num">1</span> },
+  { <span class="prop">expireAfterSeconds</span>: <span class="num">3600</span> }
+);</pre></div>
+
+  <div class="doc-h2">When to Index</div>
+  <table class="doc-table">
+    <tr><th>Index Type</th><th>Use When</th></tr>
+    <tr><td>Single field</td><td>You filter or sort by one field often</td></tr>
+    <tr><td>Compound</td><td>Queries use multiple fields together</td></tr>
+    <tr><td>Text</td><td>Full-text search across string fields</td></tr>
+    <tr><td>Unique</td><td>Field must be globally unique (email, username)</td></tr>
+    <tr><td>TTL</td><td>Documents should expire (sessions, OTP codes)</td></tr>
+    <tr><td>Sparse</td><td>Field is optional — only index docs that have it</td></tr>
+  </table>
+
+  <div class="callout callout-warn">Don't over-index. Every index slows down writes and uses RAM. Index fields you actually query. Use <code>explain("executionStats")</code> to verify index usage.</div>
+</div>
+
+<!-- RELATIONS -->
+<div class="section" id="sec-relations">
+  <div class="doc-h1">Relationships</div>
+
+  <div class="doc-h2">Embedding vs Referencing</div>
+  <div class="compare-grid">
+    <div class="compare-card" style="border-color:#1D9E75">
+      <div class="compare-title" style="color:#1D9E75">Embedding (denormalized)</div>
+      <div class="compare-item">Store related data in same document</div>
+      <div class="compare-item">Single read — no join needed</div>
+      <div class="compare-item">Best for: one-to-few, data always read together</div>
+      <div class="compare-item">Example: user ↔ address</div>
+    </div>
+    <div class="compare-card" style="border-color:#185FA5">
+      <div class="compare-title" style="color:#185FA5">Referencing (normalized)</div>
+      <div class="compare-item">Store ObjectId, fetch separately</div>
+      <div class="compare-item">Requires populate() or $lookup</div>
+      <div class="compare-item">Best for: one-to-many, shared data</div>
+      <div class="compare-item">Example: user ↔ posts</div>
+    </div>
+  </div>
+
+  <div class="doc-h2">Reference Pattern with populate()</div>
+  <div class="code-block"><pre><span class="cmt">// models/Post.ts</span>
+<span class="kw">interface</span> <span class="ty">IPost</span> <span class="kw">extends</span> <span class="ty">Document</span> {
+  <span class="prop">title</span>: <span class="ty">string</span>;
+  <span class="prop">author</span>: <span class="ty">Types.ObjectId</span>;  <span class="cmt">// reference to User</span>
+}
+<span class="kw">const</span> postSchema = <span class="kw">new</span> <span class="ty">Schema</span>&lt;<span class="ty">IPost</span>&gt;({
+  <span class="prop">title</span>:  { <span class="prop">type</span>: <span class="ty">String</span>, <span class="prop">required</span>: <span class="kw">true</span> },
+  <span class="prop">author</span>: { <span class="prop">type</span>: <span class="ty">Schema.Types.ObjectId</span>, <span class="prop">ref</span>: <span class="str">"User"</span> },
+});
+<span class="kw">export const</span> Post = <span class="fn">model</span>&lt;<span class="ty">IPost</span>&gt;(<span class="str">"Post"</span>, postSchema);
+
+<span class="cmt">// Fetch post WITH full author data</span>
+<span class="kw">const</span> post = <span class="kw">await</span> Post
+  .<span class="fn">findById</span>(postId)
+  .<span class="fn">populate</span>(<span class="str">"author"</span>, <span class="str">"name email"</span>); <span class="cmt">// only name & email</span></pre></div>
+</div>
+
+<!-- ERRORS -->
+<div class="section" id="sec-errors">
+  <div class="doc-h1">Error Handling</div>
+
+  <div class="doc-h2">Mongoose Error Types</div>
+  <div class="code-block"><pre><span class="kw">import</span> mongoose, { <span class="ty">Error as MongooseError</span> } <span class="kw">from</span> <span class="str">"mongoose"</span>;
+
+<span class="kw">async function</span> <span class="fn">createUser</span>(data: <span class="ty">Partial</span>&lt;<span class="ty">IUser</span>&gt;) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> user = <span class="kw">await</span> User.<span class="fn">create</span>(data);
+    <span class="kw">return</span> user;
+  } <span class="kw">catch</span> (err) {
+    <span class="cmt">// Validation error (required field missing, enum violation)</span>
+    <span class="kw">if</span> (err <span class="kw">instanceof</span> <span class="ty">MongooseError.ValidationError</span>) {
+      <span class="kw">const</span> messages = <span class="ty">Object</span>.<span class="fn">values</span>(err.errors)
+        .<span class="fn">map</span>(e => e.message);
+      <span class="kw">throw new</span> <span class="ty">Error</span>(<span class="str">`Validation: ${messages.join(", ")}`</span>);
+    }
+
+    <span class="cmt">// Duplicate key (unique constraint)</span>
+    <span class="kw">if</span> ((err <span class="kw">as</span> <span class="ty">any</span>).code === <span class="num">11000</span>) {
+      <span class="kw">throw new</span> <span class="ty">Error</span>(<span class="str">"Email already registered"</span>);
+    }
+
+    <span class="cmt">// Cast error (invalid ObjectId format)</span>
+    <span class="kw">if</span> (err <span class="kw">instanceof</span> <span class="ty">MongooseError.CastError</span>) {
+      <span class="kw">throw new</span> <span class="ty">Error</span>(<span class="str">`Invalid ID format: ${err.value}`</span>);
+    }
+
+    <span class="kw">throw</span> err; <span class="cmt">// re-throw unknown errors</span>
+  }
+}</pre></div>
+
+  <div class="doc-h2">Common Error Codes</div>
+  <table class="doc-table">
+    <tr><th>Code / Type</th><th>Meaning</th><th>Fix</th></tr>
+    <tr><td>11000</td><td>Duplicate key</td><td>Check unique field before insert</td></tr>
+    <tr><td>ValidationError</td><td>Schema validation failed</td><td>Check required fields, enums</td></tr>
+    <tr><td>CastError</td><td>Invalid type (bad ObjectId)</td><td>Validate input before query</td></tr>
+    <tr><td>MongoNetworkError</td><td>Can't reach DB</td><td>Check URI, network, Atlas whitelist</td></tr>
+    <tr><td>MongoTimeoutError</td><td>Query took too long</td><td>Add index, paginate, or set timeout</td></tr>
+  </table>
+
+  <div class="callout">Always handle error code <code>11000</code> explicitly in any route that creates users or unique-constraint documents — it's the most common MongoDB error in production MERN apps.</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const fileNames = {
+  'intro': 'intro.ts',
+  'sql-vs-nosql': 'sql_vs_nosql.ts',
+  'concepts': 'core_concepts.ts',
+  'connect': 'db/mongoose.ts',
+  'schema': 'models/User.ts',
+  'create': 'crud/create.ts',
+  'read': 'crud/read.ts',
+  'update': 'crud/update.ts',
+  'delete': 'crud/delete.ts',
+  'aggregation': 'pipeline/aggregation.ts',
+  'indexes': 'db/indexes.ts',
+  'relations': 'models/relations.ts',
+  'errors': 'utils/errorHandler.ts',
+};
+
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.classList.add('active');
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    if (item.getAttribute('onclick') === `show('${id}')`) item.classList.add('active');
+  });
+  document.getElementById('filename-display').textContent = fileNames[id] || id + '.ts';
+  document.getElementById('content-area').scrollTop = 0;
+}
+</script>
